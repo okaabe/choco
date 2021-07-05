@@ -12,8 +12,8 @@ Route to authenticate the user, you need to write on the body of the http reques
 
 ```json
 {
-    email: "the user's email"
-    password: "the user's password"
+    "email": "the user's email",
+    "password": "the users password"
 }
 ```
 
@@ -21,7 +21,7 @@ The server will return a json that has the property err that will inform if ever
 
 ```json
 {
-    err: "Something rlly wrong happened"
+    "err": "Something rlly wrong happened"
 }
 ```
 
@@ -29,8 +29,8 @@ But if everything happend as planned, the json will have the property "data", th
 
 ```json
 {
-    err: null,
-    data: "jwt here"
+    "err": null,
+    "data": "jwt here"
 }
 ```
 
@@ -39,9 +39,9 @@ Route to create the user's account, necessary the following body:
 
 ```json
 {
-    username: "user's username",
-    email: "user's email",
-    password: "user's password",
+    "username": "user's username",
+    "email": "user's email",
+    "password": "user's password",
 }
 ```
 
@@ -49,8 +49,8 @@ the response body of a successful operation will be:
 
 ```json
 {
-    err: null,
-    data: "jwt"
+    "err": null,
+    "data": "jwt"
 }
 ```
 
@@ -58,6 +58,6 @@ and about a failed operation:
 
 ```json
 {
-    err: "Something rlly happened",
+    "err": "Something rlly happened",
 }
 ```
