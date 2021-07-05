@@ -1,0 +1,14 @@
+version: '3'
+
+
+services:
+    choco_server_postgres:
+        image: postgres:9.4
+        restart: always
+        volumes:
+            - .pgdata:/var/lib/postgresql/data
+        environment:
+            - POSTGRES_PASSWORD=root
+            - POSTGRES_DB=choco_server
+        ports:
+            - "5432:5432"
