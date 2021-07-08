@@ -25,7 +25,7 @@ func testValidUserModel(t *testing.T) *models.User {
 	return user
 }
 
-func TestUserModel(t *testing.T) {
+func TestUserModelPermissionChecker(t *testing.T) {
 	testInvalidUserModel(t)
 	testValidUserModel(t)
 }
