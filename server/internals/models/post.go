@@ -10,11 +10,12 @@ type Post struct {
 	Nsfw        bool   `json:"nsfw"`         // The same of the previous but about the nsfw or in other words if the post is +18
 }
 
-func NewPost(title, text, author_id string, private, nsfw bool) (*Post, error) {
+func NewPost(title, text, author_id, community_id string, private, nsfw bool) (*Post, error) {
 	post := Post{
 		Title:    title,
 		Text:     text,
 		AuthorID: author_id,
+		CommunityID: community_id,
 		Private:  private,
 		Nsfw:     nsfw,
 	}

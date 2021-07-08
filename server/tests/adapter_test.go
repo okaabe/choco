@@ -14,4 +14,7 @@ func TestAdapters(t *testing.T) {
 	testCommunityAdapter(t, &adapters.CommunityAdapterImpl{
 		Adapter: adapter,
 	})
+	testPostAdapter(t, &adapters.PostAdapterImpl{
+		Adapter: adapter,
+	})
 }
