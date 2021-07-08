@@ -4,15 +4,15 @@ import "errors"
 
 const (
 	ROOT_PERMISSION uint = 999
-	USER_PERMISSION uint = 10 
+	USER_PERMISSION uint = 10
 )
 
 type User struct {
 	Base
-	Username string `json:"username"`
-	Email string `json:"email" gorm:"unique;"`
-	Password []byte `json:"password"`
-	Permission uint `json:"permission"`
+	Username   string `json:"username"`
+	Email      string `json:"email" gorm:"unique;"`
+	Password   []byte `json:"password"`
+	Permission uint   `json:"permission"`
 }
 
 func (this *User) validate() error {
@@ -25,9 +25,9 @@ func (this *User) validate() error {
 
 func NewUser(username, email string, password []byte, permission uint) (*User, error) {
 	user := User{
-		Username: username,
-		Password: password,
-		Email: email,
+		Username:   username,
+		Password:   password,
+		Email:      email,
 		Permission: permission,
 	}
 
@@ -36,7 +36,6 @@ func NewUser(username, email string, password []byte, permission uint) (*User, e
 	if err != nil {
 		return nil, err
 	}
-
 
 	return &user, nil
 }
