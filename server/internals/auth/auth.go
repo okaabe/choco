@@ -44,7 +44,25 @@ func (this *Auth) Register(username, email string, password []byte) (*models.Use
 }
 
 func (this *Auth) Authenticate(email string, password []byte) (*models.User, string, error) {
-	return nil, "", nil
+	user, userErr := this.UserAdapter.Email(email)
+
+	if userErr != nil {
+		return nil, "", errors.New("Couldn't find the user that has this email registered.")
+	}
+
+	isOk := bcrypt.CompareHashAndPassword(user.Password, password)
+
+	if isOk != nil {
+		return nil, "", errors.New("Incorrect password")
+	}
+
+	token, jwtErr := Encode(this.Secret, string(this.Issuer), email)
+
+	if jwtErr != nil {
+		return nil, "", errors.New("Couldn't create the jwt")
+	}
+
+	return user, token, nil
 }
 
 func (this *Auth) Rewoke(token string) (*models.User, error) {
