@@ -66,5 +66,17 @@ func (this *Auth) Authenticate(email string, password []byte) (*models.User, str
 }
 
 func (this *Auth) Rewoke(token string) (*models.User, error) {
-	return nil, nil
+	claim, jwtErr := IsExpiredAndDecode(token, this.Secret)
+
+	if jwtErr != nil {
+		return nil, jwtErr
+	}
+
+	user, userErr := this.UserAdapter.Email(claim.Email)
+
+	if userErr != nil {
+		return nil, errors.New("Couldn't find any user registered using this email")
+	}
+
+	return user, nil
 }
