@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func testInvalidUserModel(t *testing.T) *models.User {
+func testUserMOdelInvalidPermission(t *testing.T) *models.User {
 	user, err := models.NewUser("choco", "choco@choco", []byte("choco"), 1)
 
 	if err == nil {
@@ -15,7 +15,7 @@ func testInvalidUserModel(t *testing.T) *models.User {
 	return user
 }
 
-func testValidUserModel(t *testing.T) *models.User {
+func testUserModelValidPermission(t *testing.T) *models.User {
 	user, err := models.NewUser("choco", "choco@choco", []byte("choco"), models.ROOT_PERMISSION)
 
 	if err != nil {
@@ -26,6 +26,6 @@ func testValidUserModel(t *testing.T) *models.User {
 }
 
 func TestUserModelPermissionChecker(t *testing.T) {
-	testInvalidUserModel(t)
-	testValidUserModel(t)
+	testUserMOdelInvalidPermission(t)
+	testUserModelValidPermission(t)
 }
