@@ -46,22 +46,33 @@ func testCommunityAdapterName(t *testing.T, adapter adapters.CommunityAdapter, n
 
 func testCommunityAdapterInvalidName(t *testing.T, adapter adapters.CommunityAdapter, name string) {
 	_, err := adapter.Name(name)
-	
+
 	if err == nil {
 		t.Errorf("Expected an error to get a community by its name that shouldn't exists in the database: %s", err)
 	}
 }
 
+func testCommunityAdapterSearch(t *testing.T, adapter adapters.CommunityAdapter, text string) {
+	communities, err := adapter.Search(text)
+
+	if err != nil {
+		t.Errorf("Not expected an error to search communities: %s", err)
+	}
+
+	if len(communities) < 1 {
+		t.Errorf("Not expected an empty array as the result of the search: %s", err)
+	}
+}
+
 func testCommunityAdapter(t *testing.T, adapter adapters.CommunityAdapter) {
 	user, userErr := models.NewUser("choco", "choco@choco", []byte("choco"), models.ROOT_PERMISSION)
-	
+
 	if userErr != nil {
 		t.Errorf("Not expected an error to create the user model to test the community adapter: %s", userErr)
 	}
 
 	community, commErr := models.NewCommunity("Choco", "Group to test things a.a", user.ID, true, false)
-	
-	
+
 	if commErr != nil {
 		t.Errorf("Not expected an error to create the community model to test the community adapter: %s", commErr)
 	}
@@ -71,4 +82,5 @@ func testCommunityAdapter(t *testing.T, adapter adapters.CommunityAdapter) {
 	testCommunityAdapterInvalidGet(t, adapter, "pdkawpodkad")
 	testCommunityAdapterName(t, adapter, community.Name)
 	testCommunityAdapterInvalidName(t, adapter, "dpkapkapapapapapapa")
+	testCommunityAdapterSearch(t, adapter, community.Name)
 }
