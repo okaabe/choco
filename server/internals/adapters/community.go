@@ -45,7 +45,7 @@ func (this *CommunityAdapterImpl) Name(name string) (*models.Community, error) {
 func (this *CommunityAdapterImpl) Search(text string) ([]models.Community, error) {
 	var communities []models.Community
 
-	err := this.Adapter.Where("name LIKE ?", "%" + text + "%").Find(&communities).Error
+	err := this.Adapter.Where("name LIKE ? OR description LIKE ?", "%" + text + "%", "%" + text + "%").Find(&communities).Error
 
 	if err != nil {
 		return nil, err
