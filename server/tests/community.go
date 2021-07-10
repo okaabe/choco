@@ -64,6 +64,16 @@ func testCommunityAdapterSearch(t *testing.T, adapter adapters.CommunityAdapter,
 	}
 }
 
+func testCommunityAdapterAll(t *testing.T, adapter adapters.CommunityAdapter) []models.Community {
+	communities, err := adapter.All()
+
+	if err != nil {
+		t.Errorf("Not expected an error to get all the communities registered in the database: %s", err)
+	}
+
+	return communities
+}
+
 func testCommunityAdapter(t *testing.T, adapter adapters.CommunityAdapter) {
 	user, userErr := models.NewUser("choco", "choco@choco", []byte("choco"), models.ROOT_PERMISSION)
 
