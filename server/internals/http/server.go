@@ -1,19 +1,17 @@
 package http
 
 import (
-	"net/http"
+	"choco/server/internals/auth"
+	"choco/server/internals/content"
+	"choco/server/internals/http/routes"
 
 	"github.com/gin-gonic/gin"
 )
 
-func RunServer(address string) error {
+func RunServer(address string, auth *auth.Auth, content *content.Content) error {
 	r := gin.Default()
 
-	r.GET("/status", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "ok",
-		})
-	})
+	routes.Routes(r, auth, content)
 
 	return r.Run(address)
 }
