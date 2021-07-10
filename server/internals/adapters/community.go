@@ -11,6 +11,7 @@ type CommunityAdapter interface {
 	Add(community *models.Community) error
 	Get(id string) (*models.Community, error)
 	Name(name string) (*models.Community, error)
+	Search(text string) ([]models.Community, error)
 }
 
 type CommunityAdapterImpl struct {
@@ -39,4 +40,16 @@ func (this *CommunityAdapterImpl) Get(id string) (*models.Community, error) {
 
 func (this *CommunityAdapterImpl) Name(name string) (*models.Community, error) {
 	return this.get("name", name)
+}
+
+func (this *CommunityAdapterImpl) Search(text string) ([]models.Community, error) {
+	var communities []models.Community
+
+	err := this.Adapter.Where("name LIKE ?", "%" + text + "%").Find(&communities).Error
+
+	if err != nil {
+		return nil, err
+	}
+
+	return communities, nil
 }
