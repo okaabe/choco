@@ -1,5 +1,9 @@
 package main
 
+import (
+	"choco/server/cmd"
+)
+
 func main() {
-	println("Hello World")
+	cmd.RunApp()
 }
