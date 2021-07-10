@@ -1,7 +1,12 @@
 package cmd
 
-import "fmt"
+import (
+	"choco/server/internals/http"
+	"os"
+)
 
 func RunApp() {
-	fmt.Print("Hello World")
+	Environment()
+
+	http.RunServer(os.Getenv("SERVER_ADDRESS"))
 }
