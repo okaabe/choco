@@ -1,14 +1,14 @@
 package routes
 
 import (
-	"choco/server/internals/auth"
-	"net/http"
+	"choco/server/internals/http/middlwares"
+	"choco/server/internals/http/services"
 
 	"github.com/gin-gonic/gin"
 )
 
-func registerAuthRoutes(router *gin.Engine, auth *auth.Auth) {
-	router.GET("/api/auth/ok", func(c *gin.Context) {
-		c.JSON(http.StatusOK, "ok!")
-	})
+func registerAuthRoutes(router *gin.Engine, auth *services.AuthService, middlware *middlwares.AuthMiddlware) {
+	router.POST("/api/auth/signin", auth.SignIn)
+	router.POST("/api/auth/signup", auth.SignUp)
+	router.GET("/api/auth/rewoke", middlware.Middlware, auth.Rewoke)
 }
