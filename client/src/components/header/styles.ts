@@ -19,20 +19,20 @@ export const HeaderLogo = styled.div`
     align-items: center;
 
     img {
-        width: 35px;
-        height: 39px;
+        width: 25px;
+        height: 29px;
 
         margin: 0 15px 0 50px;
     }
 `;
 
 export const HeaderButtons = styled.div`
-    width: 30%;
+    width: 15%;
     height: 100%;
 
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
 
     padding: 0 15px;
 
@@ -43,12 +43,11 @@ export const HeaderButtons = styled.div`
         align-items: center;
         justify-content: center;
 
-        width: 350px;
-        height: 40px;
+        width: 113px;
+        height: 38px;
         border-radius: 3px;
 
-        margin: 0 5px;
-
+        font-size: 15px;
         font-weight: bold;
     }
 
@@ -58,6 +57,19 @@ export const HeaderButtons = styled.div`
     }
 
     a.signin {
+        width: 82px;
         background-color: #EAEAEA;
+    }
+
+    @media (max-width: 1588px) {
+        width: 18%;
+    }
+
+    @media (max-width: 1272px) {
+        width: 21%;
+    }
+
+    @media (max-width: 1126px) {
+        width: 25%;
     }
 `;
