@@ -27,30 +27,10 @@ export const HeaderLogo = styled.div`
 `;
 
 export const HeaderButtons = styled.div`
-    width: 50%;
+    width: 30%;
     height: 100%;
 
-    .signup, .signin, .profile {
-       width: 300px;
-       height: 60px;
-
-       display: flex;
-       align-items: center;
-       justify-content: center;
-
-       text-decoration: none;
-       color: #fff; 
-    }
-
-    .signup {
-        
-    }
-
-    .signin {
-
-    }
-
-    .profile {
-
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `;
