@@ -24,7 +24,10 @@ const ProfileButton: React.FC<{ username: string; }> = ({
 
 const SignInAndSignUpButtons: React.FC = () => {
     return (
-        <h1>Hello World</h1>
+        <>
+            <Link to="/signup" className="signup">Sign Up</Link>
+            <Link to="/signin" className="signin">Sign In</Link>
+        </>
     )
 }
 
