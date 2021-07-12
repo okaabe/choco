@@ -39,3 +39,5 @@ export const AuthHook: React.FC = ({
         </AuthContext.Provider>
     )
 }
+
+export const useAuth = () => React.useContext(AuthContext)
