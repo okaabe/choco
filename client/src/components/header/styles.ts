@@ -18,11 +18,11 @@ export const HeaderLogo = styled.div`
     display: flex;
     align-items: center;
 
-    padding: 0 15px;
-
     img {
-        width: 60px;
-        height: 60px;
+        width: 35px;
+        height: 39px;
+
+        margin: 0 15px 0 50px;
     }
 `;
 

@@ -6,13 +6,19 @@ import {
     HeaderLogo
 } from './styles';
 
-import ChocoLogo from '../../assets/imgs/chocolate.png'
+import {
+    Link
+} from 'react-router-dom';
+
+import ChocoLogo from '../../assets/imgs/logo.svg'
 
 export const Header: React.FC = () => {
     return (
         <HeaderContainer>
             <HeaderLogo>
-                <img src={ ChocoLogo } alt="choco"/>
+                <Link to="/">
+                    <img src={ ChocoLogo } alt="choco"/>
+                </Link>
             </HeaderLogo>
             <HeaderButtons>
 
