@@ -18,7 +18,7 @@ const ProfileButton: React.FC<{ username: string; }> = ({
     username
 }) => {
     return (
-        <h1>{username}</h1>
+        <Link to="/profile" className="profile">Profile</Link>
     )
 }
 

@@ -27,7 +27,7 @@ export const HeaderLogo = styled.div`
 `;
 
 export const HeaderButtons = styled.div`
-    width: 15%;
+    width: 14%;
     height: 100%;
 
     display: flex;
@@ -49,6 +49,8 @@ export const HeaderButtons = styled.div`
 
         font-size: 15px;
         font-weight: bold;
+
+        transition: background .5s;
     }
 
     a.signup {
@@ -59,6 +61,14 @@ export const HeaderButtons = styled.div`
     a.signin {
         width: 82px;
         background-color: #EAEAEA;
+    }
+
+    a.signup:hover {
+        background-color: #ff8421;
+    }
+
+    a.signin:hover {
+        background-color: #EEEEEE;
     }
 
     @media (max-width: 1588px) {
