@@ -14,7 +14,7 @@ export const SignUpContent = styled.div`
     align-items: center;
 `;
 
-export const SignUpForm = styled.div`
+export const SignUpForm = styled.form`
     width: 35%;
     height: 100%;
     
@@ -93,3 +93,8 @@ export const SignUpButton = styled.button`
         opacity: 1;
     }
 `;
+
+export const SignUpErrorMessage = styled.div`
+    color: #FF0000;
+    margin: 5px 0 5px 0;
+`
