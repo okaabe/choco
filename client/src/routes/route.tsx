@@ -19,7 +19,7 @@ export const Route: React.FC<RouteProps> = ({
     const [ user ] = useAuth()
 
     if (isPrivate && !(user && user.jwt)) {
-        return <Redirect to="/signin"/>
+        return <Redirect to="/signup"/>
     }
 
     return (

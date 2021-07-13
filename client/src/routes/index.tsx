@@ -3,7 +3,7 @@ import React from 'react';
 import { BrowserRouter, Switch } from 'react-router-dom';
 import { Route } from './route';
 
-import { SignIn } from '../pages/signin';
+import { SignUp } from '../pages/signup';
 
 export const AppRoutes: React.FC = () => {
     return (
@@ -14,7 +14,7 @@ export const AppRoutes: React.FC = () => {
                         <h1>Pagina privada onde apenas pessoas autenticadas podem acessar.</h1>
                     )
                 }}/>
-                <Route path="/signin" component={ SignIn }/>
+                <Route path="/signup" component={ SignUp }/>
             </Switch>
         </BrowserRouter>
     )
