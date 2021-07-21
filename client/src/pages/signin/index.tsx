@@ -13,8 +13,6 @@ import {
     SignInErrorMessage
 } from './styles';
 
-import Thumbnail from '../../assets/imgs/thumb.svg';
-
 import { useAuth } from '../../hooks/auth';
 import { signin } from '../../services/auth';
 
