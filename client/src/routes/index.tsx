@@ -4,6 +4,7 @@ import { BrowserRouter, Switch } from 'react-router-dom';
 import { Route } from './route';
 
 import { SignUp } from '../pages/signup';
+import { SignIn } from '../pages/signin';
 
 export const AppRoutes: React.FC = () => {
     return (
@@ -14,6 +15,7 @@ export const AppRoutes: React.FC = () => {
                         <h1>Pagina privada onde apenas pessoas autenticadas podem acessar.</h1>
                     )
                 }}/>
+                <Route path="/signin" component={ SignIn }/>
                 <Route path="/signup" component={ SignUp }/>
             </Switch>
         </BrowserRouter>

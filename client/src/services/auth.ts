@@ -13,7 +13,7 @@ export async function signin(email: string, password: string): Promise<User | nu
         throw new Error(response.data.err)
     }
 
-    return response.data
+    return response.data.data
 }
 
 export async function rewoke(token: string): Promise<Omit<User, "jwt"> | null> {
@@ -27,7 +27,7 @@ export async function rewoke(token: string): Promise<Omit<User, "jwt"> | null> {
         throw new Error(response.data.err)
     }
 
-    return response.data
+    return response.data.data
 }
 
 export async function signup(username: string, email: string, password: string): Promise<User | null> {
@@ -39,5 +39,5 @@ export async function signup(username: string, email: string, password: string):
         throw new Error(response.data.err)
     }
 
-    return response.data
+    return response.data.data
 }

@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import Thumbnail from '../../assets/imgs/thumb.svg'
 
-export const SignUpContainer = styled.div`
+export const SignInContainer = styled.div`
     width: 100vw;
     height: 100vh;
     overflow: hidden;
 `;
 
-export const SignUpContent = styled.div`
+export const SignInContent = styled.div`
     width: 100%;
     height: 100%;
 
@@ -19,7 +19,7 @@ export const SignUpContent = styled.div`
     }
 `;
 
-export const SignUpForm = styled.form`
+export const SignInForm = styled.form`
     width: 35%;
     height: 100%;
     
@@ -60,7 +60,7 @@ export const SignFormMessage = styled.div`
     }
 `;
 
-export const SignUpFormInputs = styled.div`
+export const SignInFormInputs = styled.div`
     width: 100%;
 
     display: flex;
@@ -93,7 +93,7 @@ export const SignUpFormInputs = styled.div`
     }
 `;
 
-export const SignUpThumbnail = styled.div`
+export const SignInThumbnail = styled.div`
     width: 65%;
     height: 100%;
     overflow: hidden;
@@ -111,7 +111,7 @@ export const SignUpThumbnail = styled.div`
     }
 `;
 
-export const SignUpButton = styled.button`
+export const SignInButton = styled.button`
     margin: 10px;
 
     background-color: #F48023;
@@ -138,7 +138,7 @@ export const SignUpButton = styled.button`
     }
 `;
 
-export const SignUpErrorMessage = styled.div`
+export const SignInErrorMessage = styled.div`
     color: #FF0000;
     margin: 5px 0 5px 0;
 `
