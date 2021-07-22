@@ -5,16 +5,13 @@ import { Route } from './route';
 
 import { SignUp } from '../pages/signup';
 import { SignIn } from '../pages/signin';
+import { Home } from '../pages/home';
 
 export const AppRoutes: React.FC = () => {
     return (
         <BrowserRouter>
             <Switch>
-                <Route path="/" exact isPrivate component={() => {
-                    return (
-                        <h1>Pagina privada onde apenas pessoas autenticadas podem acessar.</h1>
-                    )
-                }}/>
+                <Route path="/" exact isPrivate component={ Home }/>
                 <Route path="/signin" component={ SignIn }/>
                 <Route path="/signup" component={ SignUp }/>
             </Switch>
