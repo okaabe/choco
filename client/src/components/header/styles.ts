@@ -32,7 +32,7 @@ export const HeaderButtons = styled.div`
 
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: right;
 
     padding: 0 15px;
 
@@ -47,6 +47,8 @@ export const HeaderButtons = styled.div`
         height: 38px;
         border-radius: 3px;
 
+        margin: 0 10px;
+
         font-size: 15px;
         font-weight: bold;
 
@@ -59,7 +61,7 @@ export const HeaderButtons = styled.div`
     }
 
     a.signin {
-        width: 82px;
+        /* width: 90px; */
         background-color: #EAEAEA;
     }
 
@@ -69,6 +71,19 @@ export const HeaderButtons = styled.div`
 
     a.signin:hover {
         background-color: #EEEEEE;
+    }
+
+    .profile {
+        position: fixed;
+        color: #ffffff;
+        width: 50px;
+        height: 50px;
+        border-radius: 100%;
+        background-color: #cccc;
+    }
+
+    .profile:hover {
+        background-color: #ff8421;
     }
 
     @media (max-width: 1588px) {

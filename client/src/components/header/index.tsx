@@ -7,6 +7,10 @@ import {
 } from './styles';
 
 import {
+    FiUser
+} from 'react-icons/all';
+
+import {
     Link
 } from 'react-router-dom';
 
@@ -18,7 +22,7 @@ const ProfileButton: React.FC<{ username: string; }> = ({
     username
 }) => {
     return (
-        <Link to="/profile" className="profile">Profile</Link>
+        <Link to="/profile" className="profile"><FiUser size={ 30 }/></Link>
     )
 }
 
