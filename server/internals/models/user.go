@@ -9,10 +9,11 @@ const (
 
 type User struct {
 	Base
-	Username   string `json:"username"`
-	Email      string `json:"email" gorm:"unique;"`
-	Password   []byte `json:"password"`
-	Permission uint   `json:"permission"`
+	Username          string   `json:"username"`
+	Email             string   `json:"email" gorm:"unique;"`
+	Password          []byte   `json:"password"`
+	Permission        uint     `json:"permission"`
+	JoinedCommunities []string `json:"joined_communities" gorm:"type:text[];"`
 }
 
 func (this *User) validate() error {
@@ -30,6 +31,8 @@ func NewUser(username, email string, password []byte, permission uint) (*User, e
 		Email:      email,
 		Permission: permission,
 	}
+
+	user.NewBase()
 
 	err := user.validate()
 

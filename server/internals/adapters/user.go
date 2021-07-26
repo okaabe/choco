@@ -12,6 +12,7 @@ type UserAdapter interface {
 	Get(id string) (*models.User, error)
 	Email(email string) (*models.User, error)
 	Delete(id string) error
+	UpdateCommunities(id string, communities []string) error
 }
 
 type UserAdapterImpl struct {
@@ -44,4 +45,8 @@ func (this *UserAdapterImpl) Email(email string) (*models.User, error) {
 
 func (this *UserAdapterImpl) Delete(id string) error {
 	return this.Adapter.Delete(&models.User{}, "id = ?", id).Error
+}
+
+func (this *UserAdapterImpl) UpdateCommunities(id string, communities []string) error {
+	return this.Adapter.Model(&models.User{}).Where("id = ?", id).Update("joined_communities", communities).Error
 }
