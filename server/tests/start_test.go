@@ -3,6 +3,8 @@ package tests
 import (
 	"choco/server/internals/adapters"
 	"choco/server/internals/auth"
+	"choco/server/internals/content"
+
 	// "choco/server/internals/auth"
 	"testing"
 )
@@ -33,13 +35,27 @@ func TestAuthJwt(t *testing.T) {
 
 func TestFeatures(t *testing.T) {
 	adapter := adapters.ConnectTestDB()
+
 	var userAdapter = &adapters.UserAdapterImpl{
 		Adapter: adapter,
 	}
 
-	testAuth(t, &auth.Auth{
-		Issuer: []byte("test"),
-		Secret: []byte("test"),
+	var auth = &auth.Auth{
+		Issuer:      []byte("test"),
+		Secret:      []byte("test"),
 		UserAdapter: userAdapter,
+	}
+
+	testAuth(t, auth)
+
+	testContent(t, auth, &content.Content{
+		Auth:        auth,
+		UserAdapter: userAdapter,
+		CommunityAdapter: &adapters.CommunityAdapterImpl{
+			Adapter: adapter,
+		},
+		PostAdapter: &adapters.PostAdapterImpl{
+			Adapter: adapter,
+		},
 	})
 }
