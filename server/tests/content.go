@@ -18,7 +18,11 @@ func testContentValidCreateCommunity(t *testing.T, content *content.Content, val
 }
 
 func testContentInvalidCreateCommunity(t *testing.T, content *content.Content, invalidToken string) {
+	_, communityErr := content.CreateCommunity("Choco tests", "A simple community to work as...", invalidToken, false, false)
 
+	if communityErr == nil {
+		t.Errorf("Not expected an error to create a community: %s\n", communityErr)
+	}
 }
 
 func testContent(t *testing.T, auth *auth.Auth, content *content.Content) {
