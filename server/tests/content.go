@@ -25,6 +25,10 @@ func testContentInvalidCreateCommunity(t *testing.T, content *content.Content, i
 	}
 }
 
+func testContentValidGetPublicCommunities(t *testing.T, content *content.Content) []models.Community {
+	return nil
+}
+
 func testContent(t *testing.T, auth *auth.Auth, content *content.Content) {
 	_, token, registerErr := auth.Register("okaabe", "okaabe@okaabe", []byte("okaabe"))
 

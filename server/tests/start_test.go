@@ -21,6 +21,9 @@ func TestAdapters(t *testing.T) {
 	testPostAdapter(t, &adapters.PostAdapterImpl{
 		Adapter: adapter,
 	})
+	testMemberAdapter(t, &adapters.MemberAdapterImpl{
+		Adapter: adapter,
+	})
 }
 
 func TestAuthJwt(t *testing.T) {
@@ -49,11 +52,16 @@ func TestFeatures(t *testing.T) {
 	testAuth(t, auth)
 
 	testContent(t, auth, &content.Content{
-		Auth:        auth,
-		UserAdapter: userAdapter,
+		Auth: auth,
+
+		MemberAdapter: &adapters.MemberAdapterImpl{
+			Adapter: adapter,
+		},
+
 		CommunityAdapter: &adapters.CommunityAdapterImpl{
 			Adapter: adapter,
 		},
+
 		PostAdapter: &adapters.PostAdapterImpl{
 			Adapter: adapter,
 		},
