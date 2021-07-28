@@ -30,6 +30,18 @@ func (this *MemberAdapterImpl) first(query ...interface{}) (*models.Member, erro
 	return &member, nil
 }
 
+func (this *MemberAdapterImpl) find(query ...interface{}) ([]models.Member, error) {
+	var members []models.Member
+
+	err := this.Adapter.Find(&members, query...).Error
+
+	if err != nil {
+		return nil, err
+	}
+
+	return members, nil
+}
+
 func (this *MemberAdapterImpl) Add(member *models.Member) error {
 	return this.Adapter.Create(member).Error
 }
@@ -39,13 +51,13 @@ func (this *MemberAdapterImpl) ID(id string) (*models.Member, error) {
 }
 
 func (this *MemberAdapterImpl) MemberInTheCommunity(communityId, userId string) (*models.Member, error) {
-	return nil, nil
+	return this.first("user_id = ? AND community_id = ?", userId, communityId)
 }
 
 func (this *MemberAdapterImpl) CommunityID(communityId string) ([]models.Member, error) {
-	return nil, nil
+	return this.find("community_id = ?", communityId)
 }
 
 func (this *MemberAdapterImpl) UserID(id string) ([]models.Member, error) {
-	return nil, nil
+	return this.find("user_id = ?", id)
 }

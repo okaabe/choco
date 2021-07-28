@@ -37,7 +37,7 @@ func testMemberAdapterInvalidId(t *testing.T, memberAdapter adapters.MemberAdapt
 func testMemberAdapterValidCommunityId(t *testing.T, memberAdapter adapters.MemberAdapter, communityId string) []models.Member {
 	members, err := memberAdapter.CommunityID(communityId)
 
-	if err != nil {
+	if err != nil || len(members) < 1 {
 		t.Errorf("Not expected an error to get the members of a community by the community's id: %s", err)
 	}
 
@@ -45,9 +45,9 @@ func testMemberAdapterValidCommunityId(t *testing.T, memberAdapter adapters.Memb
 }
 
 func testMemberAdapterInvalidCommunityId(t *testing.T, memberAdapter adapters.MemberAdapter, invalidCommunityId string) {
-	_, err := memberAdapter.CommunityID(invalidCommunityId)
+	members, err := memberAdapter.CommunityID(invalidCommunityId)
 
-	if err == nil {
+	if len(members) > 1 {
 		t.Errorf("Expected an error to get the members of a community by the community's id: %s", err)
 	}
 }
@@ -55,7 +55,7 @@ func testMemberAdapterInvalidCommunityId(t *testing.T, memberAdapter adapters.Me
 func testMemberAdapterValidUserId(t *testing.T, memberAdapter adapters.MemberAdapter, validUserId string) []models.Member {
 	members, err := memberAdapter.UserID(validUserId)
 
-	if err != nil {
+	if err != nil || len(members) < 1 {
 		t.Errorf("Not expected an error to get the members that have a specific id: %s", err)
 	}
 
@@ -63,9 +63,9 @@ func testMemberAdapterValidUserId(t *testing.T, memberAdapter adapters.MemberAda
 }
 
 func testMemberAdapterInvalidUserId(t *testing.T, memberAdapter adapters.MemberAdapter, invalidUserId string) {
-	_, err := memberAdapter.UserID(invalidUserId)
+	members, err := memberAdapter.UserID(invalidUserId)
 
-	if err == nil {
+	if err != nil || len(members) > 1 {
 		t.Errorf("Expected an error to get the members that have a specific id: %s", err)
 	}
 }
