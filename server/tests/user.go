@@ -53,7 +53,7 @@ func testUserAdapterInvalidEmailGet(t *testing.T, adapter adapters.UserAdapter, 
 }
 
 func testUserAdapter(t *testing.T, adapter adapters.UserAdapter) {
-	user, userErr := models.NewUser("choco", "choco@choco", []byte("choco"), models.ROOT_PERMISSION)
+	user, userErr := models.NewUser("choco", "choco@choco", []byte("choco"))
 
 	if userErr != nil {
 		t.Errorf("Not expected an error to create the user model: %s", userErr)

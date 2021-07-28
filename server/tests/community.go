@@ -75,7 +75,7 @@ func testCommunityAdapterAll(t *testing.T, adapter adapters.CommunityAdapter) []
 }
 
 func testCommunityAdapter(t *testing.T, adapter adapters.CommunityAdapter) {
-	user, userErr := models.NewUser("choco", "choco@choco", []byte("choco"), models.ROOT_PERMISSION)
+	user, userErr := models.NewUser("choco", "choco@choco", []byte("choco"))
 
 	if userErr != nil {
 		t.Errorf("Not expected an error to create the user model to test the community adapter: %s", userErr)
