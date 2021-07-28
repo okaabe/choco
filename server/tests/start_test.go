@@ -3,6 +3,7 @@ package tests
 import (
 	"choco/server/internals/adapters"
 	"choco/server/internals/auth"
+	"choco/server/internals/content"
 
 	// "choco/server/internals/content"
 
@@ -52,19 +53,19 @@ func TestFeatures(t *testing.T) {
 
 	testAuth(t, auth)
 
-	// testContent(t, auth, &content.Content{
-	// 	Auth: auth,
+	testContent(t, auth, &content.Content{
+		Auth: auth,
 
-	// 	MemberAdapter: &adapters.MemberAdapterImpl{
-	// 		Adapter: adapter,
-	// 	},
+		MemberAdapter: &adapters.MemberAdapterImpl{
+			Adapter: adapter,
+		},
 
-	// 	CommunityAdapter: &adapters.CommunityAdapterImpl{
-	// 		Adapter: adapter,
-	// 	},
+		CommunityAdapter: &adapters.CommunityAdapterImpl{
+			Adapter: adapter,
+		},
 
-	// 	PostAdapter: &adapters.PostAdapterImpl{
-	// 		Adapter: adapter,
-	// 	},
-	// })
+		PostAdapter: &adapters.PostAdapterImpl{
+			Adapter: adapter,
+		},
+	})
 }
