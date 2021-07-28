@@ -3,9 +3,9 @@ module choco/server
 go 1.16
 
 require (
-	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-gonic/gin v1.7.2 // indirect
 	github.com/go-playground/validator/v10 v10.7.0 // indirect
+	github.com/golang-jwt/jwt v3.2.1+incompatible // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/itsjamie/gin-cors v0.0.0-20160420130702-97b4a9da7933 // indirect
 	github.com/joho/godotenv v1.3.0
