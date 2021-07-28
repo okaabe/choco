@@ -20,7 +20,7 @@ func testMemberAdapterValidId(t *testing.T, memberAdapter adapters.MemberAdapter
 	member, err := memberAdapter.ID(validId)
 
 	if err != nil {
-		t.Errorf("Not expected an error to get a member by id that should exists in the database.")
+		t.Errorf("Not expected an error to get a member by id that should exists in the database: %s", err)
 	}
 
 	return member
@@ -101,7 +101,7 @@ func testMemberAdapter(t *testing.T, memberAdapter adapters.MemberAdapter) {
 
 	testMemberAdapterAdd(t, memberAdapter, member)
 
-	testMemberAdapterValidId(t, memberAdapter, member.UserID)
+	testMemberAdapterValidId(t, memberAdapter, member.ID)
 	testMemberAdapterInvalidId(t, memberAdapter, "a.a.a.a.a.a")
 
 	testMemberAdapterInvalidCommunityId(t, memberAdapter, "ad.d..d.d.d.d")

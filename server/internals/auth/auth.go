@@ -22,7 +22,7 @@ func (this *Auth) Register(username, email string, password []byte) (*models.Use
 		return nil, "", errors.New("Couldn't hash the password")
 	}
 
-	user, userErr := models.NewUser(username, email, hash, models.USER_PERMISSION)
+	user, userErr := models.NewUser(username, email, hash)
 
 	if userErr != nil {
 		return nil, "", errors.New("Couldn't register the user")

@@ -35,7 +35,6 @@ func (this *AuthService) SignUp(c *gin.Context) {
 		"data": gin.H{
 			"username":   user.Username,
 			"email":      user.Email,
-			"permission": user.Permission,
 			"created_at": user.CreatedAt,
 			"updated_at": user.UpdatedAt,
 			"jwt":        token,
@@ -66,7 +65,6 @@ func (this *AuthService) SignIn(c *gin.Context) {
 		"data": gin.H{
 			"username":   user.Username,
 			"email":      user.Email,
-			"permission": user.Permission,
 			"created_at": user.CreatedAt,
 			"updated_at": user.UpdatedAt,
 			"jwt":        token,
@@ -98,7 +96,6 @@ func (this *AuthService) Rewoke(c *gin.Context) {
 		"data": gin.H{
 			"username":   user.Username,
 			"email":      user.Email,
-			"permission": user.Permission,
 			"created_at": user.CreatedAt,
 			"updated_at": user.UpdatedAt,
 		},
