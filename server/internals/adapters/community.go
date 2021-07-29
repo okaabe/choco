@@ -13,6 +13,7 @@ type CommunityAdapter interface {
 	Name(name string) (*models.Community, error)
 	Search(text string) ([]models.Community, error)
 	All() ([]models.Community, error)
+	GetCommunitiesThroughIDS(ids []string) ([]models.Community, error)
 }
 
 type CommunityAdapterImpl struct {
@@ -59,6 +60,18 @@ func (this *CommunityAdapterImpl) Search(text string) ([]models.Community, error
 	var communities []models.Community
 
 	err := this.Adapter.Where("name LIKE ? OR description LIKE ?", "%"+text+"%", "%"+text+"%").Find(&communities).Error
+
+	if err != nil {
+		return nil, err
+	}
+
+	return communities, nil
+}
+
+func (this *CommunityAdapterImpl) GetCommunitiesThroughIDS(ids []string) ([]models.Community, error) {
+	var communities []models.Community
+
+	err := this.Adapter.Where("id in ?", ids).Find(&communities).Error
 
 	if err != nil {
 		return nil, err

@@ -74,6 +74,20 @@ func testCommunityAdapterAll(t *testing.T, adapter adapters.CommunityAdapter) []
 	return communities
 }
 
+func testCommunityAdapterValidPublicCommunitiesByMultipleIds(t *testing.T, adapter adapters.CommunityAdapter, ids []string) []models.Community {
+	communities, err := adapter.GetCommunitiesThroughIDS(ids)
+
+	if err != nil {
+		t.Errorf("Not expected an error to get public communities at the same time: %s", err)
+	}
+
+	if len(communities) < 1 {
+		t.Errorf("Expected an array with multiple objects(models.Community), but got an empty array: %s", err)
+	}
+
+	return communities
+}
+
 func testCommunityAdapter(t *testing.T, adapter adapters.CommunityAdapter) {
 	user, userErr := models.NewUser("choco", "choco@choco", []byte("choco"))
 
@@ -93,4 +107,9 @@ func testCommunityAdapter(t *testing.T, adapter adapters.CommunityAdapter) {
 	testCommunityAdapterName(t, adapter, community.Name)
 	testCommunityAdapterInvalidName(t, adapter, "dpkapkapapapapapapa")
 	testCommunityAdapterSearch(t, adapter, community.Name)
+	communities := testCommunityAdapterAll(t, adapter)
+
+	// t.Errorf("%v\n", communities)
+
+	testCommunityAdapterValidPublicCommunitiesByMultipleIds(t, adapter, []string{communities[0].ID})
 }
