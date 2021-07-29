@@ -25,12 +25,54 @@ func testContentInvalidCreateCommunity(t *testing.T, content *content.Content, i
 	}
 }
 
-func testContentValidJoinTheCommunity(t *testing.T, content *content.Content, token string, communityId string) {
-	err := content.JoinTheCommunity(token, communityId)
+func testContentValidJoinTheCommunity(t *testing.T, content *content.Content, token, communityId string) *models.Member {
+	member, err := content.JoinTheCommunity(token, communityId)
 
 	if err != nil {
 		t.Errorf("Not expected an error to join on a community: %s", err)
 	}
+
+	return member
+}
+
+func testContentInvalidJoinTheCommunity(t *testing.T, content *content.Content, token, communityId string) {
+	_, err := content.JoinTheCommunity(token, communityId)
+
+	if err == nil {
+		t.Errorf("Expected an error to try to join on a community that doesnt exists: %s", err)
+	}
+}
+
+func testContentValidCreatePost(t *testing.T, content *content.Content, token, communityId, memberId, title, text string, private, nsfw bool) *models.Post {
+	post, err := content.CreatePost(title, text, token, communityId, private, nsfw)
+
+	if err != nil || post == nil {
+		t.Errorf("Not expected an error to create a post: %s", err)
+	}
+
+	return post
+}
+
+func testContentInvalidCreatePost(t *testing.T, content *content.Content, token, communityId, memberId, title, text string, private, nsfw bool) {
+	post, err := content.CreatePost(title, text, token, communityId, private, nsfw)
+
+	if err == nil || post != nil {
+		t.Errorf("Expected an error to try to create a post with invalid values(token, communityId, memberId...): %s", err)
+	}
+}
+
+func testContentValidSearch(t *testing.T, content *content.Content, text string) ([]models.Community, []models.Post) {
+	communities, posts, err := content.Search(text)
+
+	if err != nil {
+		t.Errorf("Not expected an error to search content: %s", err)
+	}
+
+	if len(communities) < 1 && len(posts) < 1 {
+		t.Errorf("Expected something different as result of the search, but got an empty array of communities and posts: %s", err)
+	}
+
+	return communities, posts
 }
 
 func testContent(t *testing.T, auth *auth.Auth, content *content.Content) {
@@ -42,8 +84,14 @@ func testContent(t *testing.T, auth *auth.Auth, content *content.Content) {
 
 	invalidToken := "apkwpkad.kdpwoakdpawkdpakdw.dkwpoadkwd"
 
-	var _ = testContentValidCreateCommunity(t, content, token)
+	var community = testContentValidCreateCommunity(t, content, token)
 	testContentInvalidCreateCommunity(t, content, invalidToken)
 
-	// testContentValidJoinTheCommunity(t, content, token, community.ID)
+	member := testContentValidJoinTheCommunity(t, content, token, community.ID)
+	testContentInvalidJoinTheCommunity(t, content, token, "dawww.a.a.adddd.d")
+
+	post := testContentValidCreatePost(t, content, token, community.ID, member.ID, "hello world", "hello world", false, false)
+	testContentInvalidCreatePost(t, content, token, "a.a.a", member.ID, "hello world", "hello world 2", false, false)
+
+	testContentValidSearch(t, content, post.Text)
 }

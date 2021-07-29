@@ -48,26 +48,32 @@ func (this *Content) CreateCommunity(name, description, token string, nsfw, priv
 	return community, nil
 }
 
-func (this *Content) JoinTheCommunity(token string, communityId string) (error) {
+func (this *Content) JoinTheCommunity(token string, communityId string) (*models.Member, error) {
 	user, rewokeErr := this.Auth.Rewoke(token)
 
 	if rewokeErr != nil {
-		return rewokeErr
+		return nil, rewokeErr
 	}
 
 	comm, commErr := this.CommunityAdapter.Get(communityId)
 
-	if commErr != nil || comm == nil {
-		return errors.New("COuldn't find a community with this id" + commErr.Error())
+	if commErr != nil {
+		return nil, errors.New("COuldn't find a community with this id")
 	}
 
-	_, memberErr := models.NewMember(user.ID, "ddd")
+	member, memberErr := models.NewMember(user.ID, comm.ID)
 
 	if memberErr != nil {
-		return errors.New("Couldn't join on the community")
+		return nil, errors.New("Couldn't join on the community")
 	}
 
-	return nil
+	adapterErr := this.MemberAdapter.Add(member)
+
+	if adapterErr != nil {
+		return nil, errors.New("Couldn't join on the community")
+	}
+
+	return member, nil
 }
 
 func (this *Content) CreatePost(title, text, token, communityId string, private, nsfw bool) (*models.Post, error) {
@@ -105,7 +111,19 @@ func (this *Content) CreatePost(title, text, token, communityId string, private,
 }
 
 func (this *Content) Search(text string) ([]models.Community, []models.Post, error) {
-	return nil, nil, nil
+	communities, communitiesErr := this.CommunityAdapter.Search(text)
+
+	if communitiesErr != nil {
+		return nil, nil, errors.New("Couldn't find anything")
+	}
+
+	posts, postsErr := this.PostAdapter.Search(text)
+
+	if postsErr != nil {
+		return nil, nil, errors.New("Couldn't find anything")
+	}
+
+	return communities, posts, nil
 }
 
 func (this *Content) GetCommunities(token string) ([]models.Community, error) {
