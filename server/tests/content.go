@@ -25,8 +25,12 @@ func testContentInvalidCreateCommunity(t *testing.T, content *content.Content, i
 	}
 }
 
-func testContentValidGetPublicCommunities(t *testing.T, content *content.Content) []models.Community {
-	return nil
+func testContentValidJoinTheCommunity(t *testing.T, content *content.Content, token string, communityId string) {
+	err := content.JoinTheCommunity(token, communityId)
+
+	if err != nil {
+		t.Errorf("Not expected an error to join on a community: %s", err)
+	}
 }
 
 func testContent(t *testing.T, auth *auth.Auth, content *content.Content) {
@@ -38,6 +42,8 @@ func testContent(t *testing.T, auth *auth.Auth, content *content.Content) {
 
 	invalidToken := "apkwpkad.kdpwoakdpawkdpakdw.dkwpoadkwd"
 
-	testContentValidCreateCommunity(t, content, token)
+	var _ = testContentValidCreateCommunity(t, content, token)
 	testContentInvalidCreateCommunity(t, content, invalidToken)
+
+	// testContentValidJoinTheCommunity(t, content, token, community.ID)
 }

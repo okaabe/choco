@@ -19,7 +19,7 @@ func testPostAdapterCreate(t *testing.T, adapter adapters.PostAdapter, object *m
 func testPostAdapterGet(t *testing.T, adapter adapters.PostAdapter, id string) *models.Post {
 	post, err := adapter.Get(id)
 
-	if err != nil {
+	if err != nil || post == nil {
 		t.Errorf("Not expected an error to get a post that should exists in the database: %s", err)
 	}
 
@@ -27,9 +27,9 @@ func testPostAdapterGet(t *testing.T, adapter adapters.PostAdapter, id string) *
 }
 
 func testPostAdapterInvalidGet(t *testing.T, adapter adapters.PostAdapter, id string) {
-	_, err := adapter.Get(id)
+	post, err := adapter.Get(id)
 
-	if err == nil {
+	if err == nil || post != nil {
 		t.Errorf("Expected an error to get a post that shouldn't exists in the database: %s", err)
 	}
 }

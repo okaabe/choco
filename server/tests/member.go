@@ -19,7 +19,7 @@ func testMemberAdapterAdd(t *testing.T, memberAdapter adapters.MemberAdapter, ob
 func testMemberAdapterValidId(t *testing.T, memberAdapter adapters.MemberAdapter, validId string) *models.Member {
 	member, err := memberAdapter.ID(validId)
 
-	if err != nil {
+	if err != nil || member == nil {
 		t.Errorf("Not expected an error to get a member by id that should exists in the database: %s", err)
 	}
 
@@ -27,9 +27,9 @@ func testMemberAdapterValidId(t *testing.T, memberAdapter adapters.MemberAdapter
 }
 
 func testMemberAdapterInvalidId(t *testing.T, memberAdapter adapters.MemberAdapter, invalidId string) {
-	_, err := memberAdapter.ID(invalidId)
+	member, err := memberAdapter.ID(invalidId)
 
-	if err == nil {
+	if err == nil || member != nil {
 		t.Errorf("Expected an error to get a member by id that shouldn't exists in the database, but got nil: %s", err)
 	}
 }

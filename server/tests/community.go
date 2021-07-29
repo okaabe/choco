@@ -19,7 +19,7 @@ func testCommunityAdapterCreate(t *testing.T, adapter adapters.CommunityAdapter,
 func testCommunityAdapterGet(t *testing.T, adapter adapters.CommunityAdapter, id string) *models.Community {
 	community, err := adapter.Get(id)
 
-	if err != nil {
+	if err != nil || community == nil {
 		t.Errorf("Not expected an error to get a community that should exists in the database: %s", err)
 	}
 
