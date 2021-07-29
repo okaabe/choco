@@ -30,7 +30,7 @@ func (this *PostAdapterImpl) get(property string, value string) (*models.Post, e
 		return nil, err
 	}
 
-	return nil, nil
+	return &post, nil
 }
 
 func (this *PostAdapterImpl) Get(id string) (*models.Post, error) {

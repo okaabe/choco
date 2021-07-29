@@ -33,7 +33,7 @@ func (this *CommunityAdapterImpl) get(property string, value string) (*models.Co
 		return nil, err
 	}
 
-	return nil, nil
+	return &community, nil
 }
 
 func (this *CommunityAdapterImpl) Get(id string) (*models.Community, error) {
