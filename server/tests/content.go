@@ -75,6 +75,30 @@ func testContentValidSearch(t *testing.T, content *content.Content, text string)
 	return communities, posts
 }
 
+func testContentValidGetCommunities(t *testing.T, content *content.Content, token string) []models.Community {
+	communities, err := content.GetCommunities(token)
+
+	if err != nil {
+		t.Errorf("Not expected an error to get the communities: %s", err)
+	}
+
+	if len(communities) < 1 {
+		t.Errorf("Expected more than 1 community: %s", err)
+	}
+
+	return communities
+}
+
+func testContentInvalidGetCommunities(t *testing.T, content *content.Content, invalidToken string) []models.Community {
+	communities, err := content.GetCommunities(invalidToken)
+
+	if len(communities) > 1 || err != nil {
+		t.Errorf("Expected an empty array, but got anything else: %s", err)
+	}
+
+	return communities
+}
+
 func testContent(t *testing.T, auth *auth.Auth, content *content.Content) {
 	_, token, registerErr := auth.Register("okaabe", "okaabe@okaabe", []byte("okaabe"))
 
@@ -94,4 +118,8 @@ func testContent(t *testing.T, auth *auth.Auth, content *content.Content) {
 	testContentInvalidCreatePost(t, content, token, "a.a.a", member.ID, "hello world", "hello world 2", false, false)
 
 	testContentValidSearch(t, content, post.Text)
+	testContentValidGetCommunities(t, content, token)
+
+	testContentValidGetCommunities(t, content, token)
+	testContentInvalidGetCommunities(t, content, token)
 }
