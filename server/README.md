@@ -30,6 +30,12 @@ On the server-side of the choco, i have used:
 - DOD (Data oriented design)
 
 
-## References
-http://jamesmcm.github.io/blog/2020/07/25/intro-dod/
--
+## Links
+- http://jamesmcm.github.io/blog/2020/07/25/intro-dod/
+- https://airbrake.io/blog/software-design/domain-driven-design
+- https://en.wikipedia.org/wiki/Test-driven_development
+- https://gorm.io
+- https://github.com/gin-gonic/gin
+- https://www.docker.com/
+- https://docs.docker.com/compose/
+- https://golang.org/
