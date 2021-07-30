@@ -1,63 +1,35 @@
-# Choco server-side
-That's the choco's server-side code which was writen in golang
+# Choco API
+That's the api of the choco, where the authentication and content management are done, if you are interested on it, check more information about it below
 
-## Info
-Here it is all the information about what you need to know to use this api
+## Routes
+- [x] `/api/auth/signin` <strong>POST</strong>
+- [x] `/api/auth/signup` <strong>POST</strong>
+- [x] `/api/auth/rewoke` <strong>GET</strong>
 
-## Addresses
-The addresses of the rest-api
+- [ ] `/api/content/community` <strong>POST</strong>
+- [ ] `/api/content/community/:id` <strong>GET</strong>
+- [ ] `/api/content/community/:id/posts` <strong>POST</strong>
+- [ ] `/api/content/community/:id/posts` <strong>GET</strong>
+- [ ] `/api/content/community/:id/posts/:postId` <strong>GET</strong>
 
-### /api/auth/signin
-Route to authenticate the user, you need to write on the body of the http request the json below
+## Stack
+On the server-side of the choco, i have used:
 
-```json
-{
-    "email": "the user's email",
-    "password": "the users password"
-}
-```
+- Golang
 
-The server will return a json that has the property err that will inform if everything happened as planned or if ocurred some error
+- Docker
+- Docker Compose
 
-```json
-{
-    "err": "Something rlly wrong happened"
-}
-```
+- Gin Gonic (Http Framework)
 
-But if everything happend as planned, the json will have the property "data", that will be the jwt:
+- Postgresql(production db) and SQlite(db to run the tests)
+- Gorm (as sql orm)
 
-```json
-{
-    "err": null,
-    "data": "jwt here"
-}
-```
+- TDD (Test driven development)
+- DDD (Domain driven design)
+- DOD (Data oriented design)
 
-### /auth/auth/signup
-Route to create the user's account, necessary the following body:
 
-```json
-{
-    "username": "user's username",
-    "email": "user's email",
-    "password": "user's password",
-}
-```
-
-the response body of a successful operation will be:
-
-```json
-{
-    "err": null,
-    "data": "jwt"
-}
-```
-
-and about a failed operation:
-
-```json
-{
-    "err": "Something rlly happened",
-}
-```
+## References
+http://jamesmcm.github.io/blog/2020/07/25/intro-dod/
+-
