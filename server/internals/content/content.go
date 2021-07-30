@@ -126,6 +126,18 @@ func (this *Content) Search(text string) ([]models.Community, []models.Post, err
 	return communities, posts, nil
 }
 
-func (this *Content) GetCommunities(token string) ([]models.Community, error) {
-	return nil, nil
+func (this *Content) GetCommunities(token string) ([]models.Member, error) {
+	user, rewokeErr := this.Auth.Rewoke(token)
+
+	if rewokeErr != nil {
+		return nil, rewokeErr
+	}
+
+	members, memberErr := this.MemberAdapter.UserID(user.ID)
+
+	if memberErr != nil {
+		return nil, errors.New("Couldn't find any community")
+	}
+
+	return members, nil
 }
