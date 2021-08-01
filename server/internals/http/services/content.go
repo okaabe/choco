@@ -48,5 +48,16 @@ func (this *ContentService) CreatePost(c *gin.Context) {
 func (this *ContentService) GetJoinedCommunities(c *gin.Context) {
 	token := c.Request.Header.Get("Authorization")
 
-	c.JSON(201, token);
+	members, err := this.Content.GetJoinedCommunities(token)
+
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
+			"err": err.Error(),
+		})
+		return
+	}
+
+	c.JSON(http.StatusFound, gin.H{
+		"data": members,
+	})
 }
