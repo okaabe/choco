@@ -26,6 +26,7 @@ func RunApp() {
 			Auth:             auth,
 			CommunityAdapter: &adapters.CommunityAdapterImpl{Adapter: adapter},
 			PostAdapter:      &adapters.PostAdapterImpl{Adapter: adapter},
+			MemberAdapter: &adapters.MemberAdapterImpl{Adapter: adapter},
 		}
 	)
 

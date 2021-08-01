@@ -8,5 +8,6 @@ import (
 )
 
 func registerContentRoutes(router *gin.Engine, content *services.ContentService, middlware *middlwares.AuthMiddlware) {
-	router.GET("/api/content/user/communities", middlware.Middlware, content.GetJoinedCommunities)
+	router.POST("/api/content/community", middlware.Middlware, content.CreateCommunity)
+	// router.GET("/api/content/user/communities", middlware.Middlware, content.GetJoinedCommunities)
 }
