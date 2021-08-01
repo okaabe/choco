@@ -75,8 +75,8 @@ func testContentValidSearch(t *testing.T, content *content.Content, text string)
 	return communities, posts
 }
 
-func testContentValidGetCommunities(t *testing.T, content *content.Content, token string) []models.Member {
-	members, err := content.GetCommunities(token)
+func testContentValidGetJoinedCommunities(t *testing.T, content *content.Content, token string) []models.Member {
+	members, err := content.GetJoinedCommunities(token)
 
 	if err != nil {
 		t.Errorf("Not expected an error to get the communities: %s", err)
@@ -89,8 +89,8 @@ func testContentValidGetCommunities(t *testing.T, content *content.Content, toke
 	return members
 }
 
-func testContentInvalidGetCommunities(t *testing.T, content *content.Content, invalidToken string) []models.Member {
-	members, err := content.GetCommunities(invalidToken)
+func testContentInvalidGetJoinedCommunities(t *testing.T, content *content.Content, invalidToken string) []models.Member {
+	members, err := content.GetJoinedCommunities(invalidToken)
 
 	if err == nil {
 		t.Errorf("Expected an error to get the communities: %s", err)
@@ -118,8 +118,8 @@ func testContent(t *testing.T, auth *auth.Auth, content *content.Content) {
 	testContentInvalidCreatePost(t, content, token, "a.a.a", member.ID, "hello world", "hello world 2", false, false)
 
 	testContentValidSearch(t, content, post.Text)
-	testContentValidGetCommunities(t, content, token)
+	testContentValidGetJoinedCommunities(t, content, token)
 
-	testContentValidGetCommunities(t, content, token)
-	testContentInvalidGetCommunities(t, content, "d.d.d.d.d")
+	testContentValidGetJoinedCommunities(t, content, token)
+	testContentInvalidGetJoinedCommunities(t, content, "d.d.d.d.d")
 }

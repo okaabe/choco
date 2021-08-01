@@ -18,5 +18,9 @@ func Routes(router *gin.Engine, auth *auth.Auth, content *content.Content) error
 		Auth: auth,
 	}, authMiddlware)
 
+	registerContentRoutes(router, &services.ContentService{
+		Content: content,
+	}, authMiddlware)
+
 	return nil
 }
