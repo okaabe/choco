@@ -5,6 +5,7 @@ import (
 	"choco/server/internals/auth"
 	"choco/server/internals/models"
 	"errors"
+	"fmt"
 )
 
 type Content struct {
@@ -76,6 +77,11 @@ func (this *Content) JoinTheCommunity(token string, communityId string) (*models
 	return member, nil
 }
 
+func (this *Content) GetCommunity(id string) (*models.Community, error) {
+
+	return nil, nil
+}
+
 func (this *Content) CreatePost(title, text, token, communityId string, private, nsfw bool) (*models.Post, error) {
 	user, rewokeErr := this.Auth.Rewoke(token)
 
@@ -126,7 +132,7 @@ func (this *Content) Search(text string) ([]models.Community, []models.Post, err
 	return communities, posts, nil
 }
 
-func (this *Content) GetCommunities(token string) ([]models.Member, error) {
+func (this *Content) GetJoinedCommunities(token string) ([]models.Member, error) {
 	user, rewokeErr := this.Auth.Rewoke(token)
 
 	if rewokeErr != nil {
@@ -134,6 +140,8 @@ func (this *Content) GetCommunities(token string) ([]models.Member, error) {
 	}
 
 	members, memberErr := this.MemberAdapter.UserID(user.ID)
+
+	fmt.Printf("%v\n", members)
 
 	if memberErr != nil {
 		return nil, errors.New("Couldn't find any community")
