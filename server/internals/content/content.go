@@ -78,9 +78,8 @@ func (this *Content) JoinTheCommunity(token string, communityName string) (*mode
 	return member, nil
 }
 
-
-func (this *Content) GetCommunity(id string) (*models.Community, error) {
-	community, cmmErr := this.CommunityAdapter.Get(id)
+func (this *Content) GetCommunity(name string) (*models.Community, error) {
+	community, cmmErr := this.CommunityAdapter.Name(name)
 
 	if cmmErr != nil {
 		return nil, errors.New("Couldn't find the community with this id")

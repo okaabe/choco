@@ -45,6 +45,31 @@ func (this *ContentService) CreatePost(c *gin.Context) {
 
 }
 
+func (this *ContentService) JoinCommunity(c *gin.Context) {
+	communityName := c.Param("name")
+	token := c.Request.Header.Get("Authorization")
+
+	if communityName == "" || token == "" {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			"err": "Bad Request",
+		})
+		return
+	}
+
+	member, err := this.Content.JoinTheCommunity(token, communityName)
+
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
+			"err": err.Error(),
+		})
+		return
+	}
+
+	c.JSON(http.StatusAccepted, gin.H{
+		"data": member,
+	})
+}
+
 func (this *ContentService) GetJoinedCommunities(c *gin.Context) {
 	token := c.Request.Header.Get("Authorization")
 
@@ -64,7 +89,7 @@ func (this *ContentService) GetJoinedCommunities(c *gin.Context) {
 
 func (this *ContentService) Search(c *gin.Context) {
 	search_query := c.Request.URL.Query().Get("search_query")
-	
+
 	communities, posts, err := this.Content.Search(search_query)
 
 	if err != nil {
@@ -77,7 +102,7 @@ func (this *ContentService) Search(c *gin.Context) {
 	c.JSON(http.StatusFound, gin.H{
 		"data": gin.H{
 			"communities": communities,
-			"posts": posts,
+			"posts":       posts,
 		},
 	})
 }
