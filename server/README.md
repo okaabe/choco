@@ -10,6 +10,7 @@ That's the api of the choco, where the authentication and content management are
 
 
 - [ ] `/api/content/community` <strong>POST</strong>
+- [ ] `/api/content/community?search_query=<text>` <strong>GET</strong>
 - [ ] `/api/content/community/:id` <strong>GET</strong>
 - [ ] `/api/content/community/:id/posts` <strong>POST</strong>
 - [ ] `/api/content/community/:id/posts` <strong>GET</strong>

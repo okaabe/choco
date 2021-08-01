@@ -16,7 +16,7 @@ type ContentService struct {
 
 func (this *ContentService) CreateCommunity(c *gin.Context) {
 	var (
-		form inputs.CreateCommunity
+		form  inputs.CreateCommunity
 		token = c.Request.Header.Get("Authorization")
 	)
 
@@ -60,4 +60,10 @@ func (this *ContentService) GetJoinedCommunities(c *gin.Context) {
 	c.JSON(http.StatusFound, gin.H{
 		"data": members,
 	})
+}
+
+func (this *ContentService) Search(c *gin.Context) {
+	search_query := c.Request.URL.Query().Get("search_query")
+
+	c.JSON(201, search_query)
 }
