@@ -45,13 +45,13 @@ func testPostAdapterCommunity(t *testing.T, adapter adapters.PostAdapter, commun
 }
 
 func testPostAdapter(t *testing.T, adapter adapters.PostAdapter) {
-	community, commErr := models.NewCommunity("choco", "choco cool", "kdpoakwdop", false, false)
+	community, commErr := models.NewCommunity("choco", "choco cool", "kdpoakwdop", false)
 
 	if commErr != nil {
 		t.Errorf("Not expected an error to create a community model to test the post adapter: %s", commErr)
 	}
 
-	post, postErr := models.NewPost("A cool title about chocolate", "A big text that describes how chocolate is amazing", "kdpoakwdop", community.ID, false, false)
+	post, postErr := models.NewPost("A cool title about chocolate", "A big text that describes how chocolate is amazing", "kdpoakwdop", community.ID, false)
 
 	if postErr != nil {
 		t.Errorf("Not expected an error to create a post model to test the post adapter: %s", postErr)

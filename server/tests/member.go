@@ -87,7 +87,7 @@ func testMemberAdapter(t *testing.T, memberAdapter adapters.MemberAdapter) {
 		t.Errorf("Not expected an error to create the user: %s", userErr)
 	}
 
-	community, communityErr := models.NewCommunity("test", "test", user.ID, false, false)
+	community, communityErr := models.NewCommunity("test", "test", user.ID, false)
 
 	if communityErr != nil {
 		t.Errorf("Not expected an error to create the community: %s", communityErr)

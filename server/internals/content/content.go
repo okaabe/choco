@@ -15,14 +15,14 @@ type Content struct {
 	PostAdapter      adapters.PostAdapter
 }
 
-func (this *Content) CreateCommunity(name, description, token string, nsfw, private bool) (*models.Community, error) {
+func (this *Content) CreateCommunity(name, description, token string, nsfw bool) (*models.Community, error) {
 	user, rewokeErr := this.Auth.Rewoke(token)
 
 	if rewokeErr != nil {
 		return nil, rewokeErr
 	}
 
-	community, communityErr := models.NewCommunity(name, description, user.ID, private, nsfw)
+	community, communityErr := models.NewCommunity(name, description, user.ID, nsfw)
 
 	if communityErr != nil {
 		return nil, errors.New("Couldn't create the community")
@@ -49,6 +49,7 @@ func (this *Content) CreateCommunity(name, description, token string, nsfw, priv
 	return community, nil
 }
 
+//That functions is responsible to execute the operation to a user join in a community
 func (this *Content) JoinTheCommunity(token string, communityId string) (*models.Member, error) {
 	user, rewokeErr := this.Auth.Rewoke(token)
 
@@ -77,12 +78,18 @@ func (this *Content) JoinTheCommunity(token string, communityId string) (*models
 	return member, nil
 }
 
-func (this *Content) GetCommunity(id string) (*models.Community, error) {
 
-	return nil, nil
+func (this *Content) GetCommunity(id string) (*models.Community, error) {
+	community, cmmErr := this.CommunityAdapter.Get(id)
+
+	if cmmErr != nil {
+		return nil, errors.New("Couldn't find the community with this id")
+	}
+
+	return community, nil
 }
 
-func (this *Content) CreatePost(title, text, token, communityId string, private, nsfw bool) (*models.Post, error) {
+func (this *Content) CreatePost(title, text, token, communityId string, nsfw bool) (*models.Post, error) {
 	user, rewokeErr := this.Auth.Rewoke(token)
 
 	if rewokeErr != nil {
@@ -101,7 +108,7 @@ func (this *Content) CreatePost(title, text, token, communityId string, private,
 		return nil, errors.New("You don't have permission to create a post on this guild, since that you are not a member of it")
 	}
 
-	post, postErr := models.NewPost(title, text, member.ID, community.ID, private, nsfw)
+	post, postErr := models.NewPost(title, text, member.ID, community.ID, nsfw)
 
 	if postErr != nil {
 		return nil, errors.New("Couldn't create the post")

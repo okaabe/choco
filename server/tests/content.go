@@ -8,7 +8,7 @@ import (
 )
 
 func testContentValidCreateCommunity(t *testing.T, content *content.Content, validToken string) *models.Community {
-	community, communityErr := content.CreateCommunity("Choco tests", "A simple community to work as...", validToken, false, false)
+	community, communityErr := content.CreateCommunity("Choco tests", "A simple community to work as...", validToken, false)
 
 	if communityErr != nil {
 		t.Errorf("Not expected an error to create a community: %s\n", communityErr)
@@ -18,7 +18,7 @@ func testContentValidCreateCommunity(t *testing.T, content *content.Content, val
 }
 
 func testContentInvalidCreateCommunity(t *testing.T, content *content.Content, invalidToken string) {
-	_, communityErr := content.CreateCommunity("Choco tests", "A simple community to work as...", invalidToken, false, false)
+	_, communityErr := content.CreateCommunity("Choco tests", "A simple community to work as...", invalidToken, false)
 
 	if communityErr == nil {
 		t.Errorf("Not expected an error to create a community: %s\n", communityErr)
@@ -44,7 +44,7 @@ func testContentInvalidJoinTheCommunity(t *testing.T, content *content.Content, 
 }
 
 func testContentValidCreatePost(t *testing.T, content *content.Content, token, communityId, memberId, title, text string, private, nsfw bool) *models.Post {
-	post, err := content.CreatePost(title, text, token, communityId, private, nsfw)
+	post, err := content.CreatePost(title, text, token, communityId, nsfw)
 
 	if err != nil || post == nil {
 		t.Errorf("Not expected an error to create a post: %s", err)
@@ -54,7 +54,7 @@ func testContentValidCreatePost(t *testing.T, content *content.Content, token, c
 }
 
 func testContentInvalidCreatePost(t *testing.T, content *content.Content, token, communityId, memberId, title, text string, private, nsfw bool) {
-	post, err := content.CreatePost(title, text, token, communityId, private, nsfw)
+	post, err := content.CreatePost(title, text, token, communityId, nsfw)
 
 	if err == nil || post != nil {
 		t.Errorf("Expected an error to try to create a post with invalid values(token, communityId, memberId...): %s", err)

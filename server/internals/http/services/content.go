@@ -27,7 +27,7 @@ func (this *ContentService) CreateCommunity(c *gin.Context) {
 		return
 	}
 
-	community, commErr := this.Content.CreateCommunity(form.Name, form.Description, token, form.Nsfw, form.Private)
+	community, commErr := this.Content.CreateCommunity(form.Name, form.Description, token, form.Nsfw)
 
 	if commErr != nil {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
@@ -62,13 +62,9 @@ func (this *ContentService) GetJoinedCommunities(c *gin.Context) {
 	})
 }
 
-//Authenticated search, that means that private communities that the user has acess will show on the result
-func (this *ContentService) AuthenticatedSearch(c *gin.Context, search_query, token string) {
-	// to do
-}
-
-//Not authenticated search, that meeans that private communities of the user won't show on the result
-func (this *ContentService) ObserverSearch(c *gin.Context, search_query string) {
+func (this *ContentService) Search(c *gin.Context) {
+	search_query := c.Request.URL.Query().Get("search_query")
+	
 	communities, posts, err := this.Content.Search(search_query)
 
 	if err != nil {
@@ -81,19 +77,7 @@ func (this *ContentService) ObserverSearch(c *gin.Context, search_query string) 
 	c.JSON(http.StatusFound, gin.H{
 		"data": gin.H{
 			"communities": communities,
-			"posts":       posts,
+			"posts": posts,
 		},
 	})
-}
-
-func (this *ContentService) Search(c *gin.Context) {
-	search_query := c.Request.URL.Query().Get("search_query")
-	token := c.Request.Header.Get("Authorization")
-
-	if token == "" {
-		this.ObserverSearch(c, search_query)
-	} else {
-		this.AuthenticatedSearch(c, search_query, token)
-	}
-
 }

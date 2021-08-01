@@ -95,7 +95,7 @@ func testCommunityAdapter(t *testing.T, adapter adapters.CommunityAdapter) {
 		t.Errorf("Not expected an error to create the user model to test the community adapter: %s", userErr)
 	}
 
-	community, commErr := models.NewCommunity("Choco", "Group to test things a.a", user.ID, true, false)
+	community, commErr := models.NewCommunity("Choco", "Group to test things a.a", user.ID, false)
 
 	if commErr != nil {
 		t.Errorf("Not expected an error to create the community model to test the community adapter: %s", commErr)
