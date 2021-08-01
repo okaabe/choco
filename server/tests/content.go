@@ -25,8 +25,8 @@ func testContentInvalidCreateCommunity(t *testing.T, content *content.Content, i
 	}
 }
 
-func testContentValidJoinTheCommunity(t *testing.T, content *content.Content, token, communityId string) *models.Member {
-	member, err := content.JoinTheCommunity(token, communityId)
+func testContentValidJoinTheCommunity(t *testing.T, content *content.Content, token, communityName string) *models.Member {
+	member, err := content.JoinTheCommunity(token, communityName)
 
 	if err != nil {
 		t.Errorf("Not expected an error to join on a community: %s", err)
@@ -43,8 +43,8 @@ func testContentInvalidJoinTheCommunity(t *testing.T, content *content.Content, 
 	}
 }
 
-func testContentValidCreatePost(t *testing.T, content *content.Content, token, communityId, memberId, title, text string, private, nsfw bool) *models.Post {
-	post, err := content.CreatePost(title, text, token, communityId, nsfw)
+func testContentValidCreatePost(t *testing.T, content *content.Content, token, communityName, memberId, title, text string, private, nsfw bool) *models.Post {
+	post, err := content.CreatePost(title, text, token, communityName, nsfw)
 
 	if err != nil || post == nil {
 		t.Errorf("Not expected an error to create a post: %s", err)
@@ -53,8 +53,8 @@ func testContentValidCreatePost(t *testing.T, content *content.Content, token, c
 	return post
 }
 
-func testContentInvalidCreatePost(t *testing.T, content *content.Content, token, communityId, memberId, title, text string, private, nsfw bool) {
-	post, err := content.CreatePost(title, text, token, communityId, nsfw)
+func testContentInvalidCreatePost(t *testing.T, content *content.Content, token, communityName, memberId, title, text string, private, nsfw bool) {
+	post, err := content.CreatePost(title, text, token, communityName, nsfw)
 
 	if err == nil || post != nil {
 		t.Errorf("Expected an error to try to create a post with invalid values(token, communityId, memberId...): %s", err)
@@ -111,10 +111,10 @@ func testContent(t *testing.T, auth *auth.Auth, content *content.Content) {
 	var community = testContentValidCreateCommunity(t, content, token)
 	testContentInvalidCreateCommunity(t, content, invalidToken)
 
-	member := testContentValidJoinTheCommunity(t, content, token, community.ID)
-	testContentInvalidJoinTheCommunity(t, content, token, "dawww.a.a.adddd.d")
+	member := testContentValidJoinTheCommunity(t, content, token, community.Name)
+	testContentInvalidJoinTheCommunity(t, content, token, "dawdawd")
 
-	post := testContentValidCreatePost(t, content, token, community.ID, member.ID, "hello world", "hello world", false, false)
+	post := testContentValidCreatePost(t, content, token, community.Name, member.ID, "hello world", "hello world", false, false)
 	testContentInvalidCreatePost(t, content, token, "a.a.a", member.ID, "hello world", "hello world 2", false, false)
 
 	testContentValidSearch(t, content, post.Text)

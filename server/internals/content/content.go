@@ -50,14 +50,14 @@ func (this *Content) CreateCommunity(name, description, token string, nsfw bool)
 }
 
 //That functions is responsible to execute the operation to a user join in a community
-func (this *Content) JoinTheCommunity(token string, communityId string) (*models.Member, error) {
+func (this *Content) JoinTheCommunity(token string, communityName string) (*models.Member, error) {
 	user, rewokeErr := this.Auth.Rewoke(token)
 
 	if rewokeErr != nil {
 		return nil, rewokeErr
 	}
 
-	comm, commErr := this.CommunityAdapter.Get(communityId)
+	comm, commErr := this.CommunityAdapter.Name(communityName)
 
 	if commErr != nil {
 		return nil, errors.New("COuldn't find a community with this id")
@@ -89,14 +89,14 @@ func (this *Content) GetCommunity(id string) (*models.Community, error) {
 	return community, nil
 }
 
-func (this *Content) CreatePost(title, text, token, communityId string, nsfw bool) (*models.Post, error) {
+func (this *Content) CreatePost(title, text, token, communityName string, nsfw bool) (*models.Post, error) {
 	user, rewokeErr := this.Auth.Rewoke(token)
 
 	if rewokeErr != nil {
 		return nil, rewokeErr
 	}
 
-	community, communityErr := this.CommunityAdapter.Get(communityId)
+	community, communityErr := this.CommunityAdapter.Name(communityName)
 
 	if communityErr != nil {
 		return nil, errors.New("Couldn't find the community with this id")
