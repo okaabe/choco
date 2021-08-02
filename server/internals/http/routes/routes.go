@@ -18,7 +18,7 @@ func Routes(router *gin.Engine, sessionUseCase *session.SessionUseCase, content 
 		Session: sessionUseCase,
 	}, authMiddlware)
 
-	registerContentRoutes(router, &services.ContentService{
+	registerContentRoutes(router, &services.ContentHttpService{
 		Content: content,
 	}, authMiddlware)
 

@@ -7,15 +7,16 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func registerContentRoutes(router *gin.Engine, content *services.ContentService, middlware *middlwares.AuthMiddlware) {
+func registerContentRoutes(router *gin.Engine, content *services.ContentHttpService, middlware *middlwares.AuthMiddlware) {
 	router.POST("/api/content/community", middlware.Middlware, content.CreateCommunity)
 
 	router.GET("/api/content/user/communities", middlware.Middlware, content.GetJoinedCommunities)
-	router.POST("/api/content/user/community/:name", middlware.Middlware, content.JoinCommunity)
+	router.POST("/api/content/user/community/", middlware.Middlware, content.JoinCommunity)
 
-	router.GET("/api/content/community", content.Search)
-	router.GET("/api/content/community/:name", content.Search)
+	router.GET("/api/content/", content.Search)
+	router.GET("/api/content/:name", content.Search)
+	router.GET("/api/content/community/:name", content.GetCommunity)
 
 	router.POST("/api/content/community/:name", middlware.Middlware, content.CreatePost)
-	// router.GET("/api/content/community/:name/posts", content.GetPosts)
+	router.GET("/api/content/community/:name/posts", content.GetPosts)
 }

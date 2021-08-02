@@ -61,7 +61,13 @@ func (this *Content) JoinTheCommunity(token string, communityName string) (*mode
 	comm, commErr := this.CommunityAdapter.Name(strings.ToLower(communityName))
 
 	if commErr != nil {
-		return nil, errors.New("COuldn't find a community with this id")
+		return nil, errors.New("COuldn't find a community with this name")
+	}
+
+	_, memberAlreadyExists := this.MemberAdapter.MemberInTheCommunity(comm.ID, user.ID)
+
+	if memberAlreadyExists == nil {
+		return nil, errors.New("The user is already on the community")
 	}
 
 	member, memberErr := models.NewMember(user.ID, comm.ID)
@@ -80,10 +86,10 @@ func (this *Content) JoinTheCommunity(token string, communityName string) (*mode
 }
 
 func (this *Content) GetCommunity(name string) (*models.Community, error) {
-	community, cmmErr := this.CommunityAdapter.Name(name)
+	community, cmmErr := this.CommunityAdapter.Name(strings.ToLower(name))
 
 	if cmmErr != nil {
-		return nil, errors.New("Couldn't find the community with this id")
+		return nil, errors.New("Couldn't find the community with this name")
 	}
 
 	return community, nil
@@ -99,7 +105,7 @@ func (this *Content) CreatePost(title, text, token, communityName string, nsfw b
 	community, communityErr := this.CommunityAdapter.Name(strings.ToLower(communityName))
 
 	if communityErr != nil {
-		return nil, errors.New("Couldn't find the community with this id")
+		return nil, errors.New("Couldn't find the community with this name")
 	}
 
 	member, memberErr := this.MemberAdapter.MemberInTheCommunity(community.ID, user.ID)

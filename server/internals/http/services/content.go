@@ -10,11 +10,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type ContentService struct {
+type ContentHttpService struct {
 	Content *content.Content
 }
 
-func (this *ContentService) CreateCommunity(c *gin.Context) {
+func (this *ContentHttpService) CreateCommunity(c *gin.Context) {
 	var (
 		form  binds.CreateCommunity
 		token = c.Request.Header.Get("Authorization")
@@ -36,40 +36,67 @@ func (this *ContentService) CreateCommunity(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{
+	c.JSON(http.StatusCreated, gin.H{
 		"data": community,
 	})
 }
 
-func (this *ContentService) CreatePost(c *gin.Context) {
-}
+func (this *ContentHttpService) CreatePost(c *gin.Context) {
+	var (
+		form          binds.CreatePost
+		token         = c.Request.Header.Get("Authorization")
+		communityName = c.Param("name")
+	)
 
-func (this *ContentService) JoinCommunity(c *gin.Context) {
-	communityName := c.Param("name")
-	token := c.Request.Header.Get("Authorization")
-
-	if communityName == "" || token == "" {
+	if err := c.ShouldBindJSON(&form); err != nil || form.Invalid() {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"err": "Bad Request",
 		})
 		return
 	}
 
-	member, err := this.Content.JoinTheCommunity(token, communityName)
+	post, postErr := this.Content.CreatePost(form.Title, form.Text, token, communityName, form.Nsfw)
 
-	if err != nil {
+	if postErr != nil {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
-			"err": err.Error(),
+			"err": postErr.Error(),
 		})
 		return
 	}
 
-	c.JSON(http.StatusAccepted, gin.H{
+	c.JSON(http.StatusCreated, gin.H{
+		"data": post,
+	})
+}
+
+func (this *ContentHttpService) JoinCommunity(c *gin.Context) {
+	var (
+		form  binds.JoinCommunity
+		token = c.Request.Header.Get("Authorization")
+	)
+
+	if err := c.ShouldBindJSON(&form); err != nil || form.Invalid() || token == "" {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			"err": "Bad Request",
+		})
+		return
+	}
+
+	member, joinCmmErr := this.Content.JoinTheCommunity(token, form.CommunityName)
+
+	if joinCmmErr != nil {
+		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
+			"err": joinCmmErr.Error(),
+		})
+		return
+	}
+
+	c.JSON(http.StatusCreated, gin.H{
 		"data": member,
 	})
 }
 
-func (this *ContentService) GetJoinedCommunities(c *gin.Context) {
+func (this *ContentHttpService) GetJoinedCommunities(c *gin.Context) {
 	token := c.Request.Header.Get("Authorization")
 
 	members, err := this.Content.GetJoinedCommunities(token)
@@ -86,7 +113,7 @@ func (this *ContentService) GetJoinedCommunities(c *gin.Context) {
 	})
 }
 
-func (this *ContentService) Search(c *gin.Context) {
+func (this *ContentHttpService) Search(c *gin.Context) {
 	search_query := c.Request.URL.Query().Get("search_query")
 
 	communities, posts, err := this.Content.Search(search_query)
@@ -104,4 +131,25 @@ func (this *ContentService) Search(c *gin.Context) {
 			"posts":       posts,
 		},
 	})
+}
+
+func (this *ContentHttpService) GetCommunity(c *gin.Context) {
+	name := c.Param("name")
+
+	community, communityErr := this.Content.GetCommunity(name)
+
+	if communityErr != nil {
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
+			"err": "Not found",
+		})
+		return
+	}
+
+	c.JSON(http.StatusFound, gin.H{
+		"data": community,
+	})
+}
+
+func (this *ContentHttpService) GetPosts(c *gin.Context) {
+	
 }
