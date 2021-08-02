@@ -16,10 +16,10 @@ func ConnectDB(dialector gorm.Dialector) *gorm.DB {
 	logger := logger.New(
 		log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
 		logger.Config{
-			SlowThreshold:              time.Second,   // Slow SQL threshold
-			LogLevel:                   logger.Info, // Log level
-			IgnoreRecordNotFoundError: true,           // Ignore ErrRecordNotFound error for logger
-			Colorful:                  true,          // Disable color
+			SlowThreshold:             time.Second, // Slow SQL threshold
+			LogLevel:                  logger.Info, // Log level
+			IgnoreRecordNotFoundError: true,        // Ignore ErrRecordNotFound error for logger
+			Colorful:                  true,        // Disable color
 		},
 	)
 
@@ -31,7 +31,7 @@ func ConnectDB(dialector gorm.Dialector) *gorm.DB {
 		log.Fatalf("Couldn't connect to the database cause: %s", err)
 	}
 
-	db.AutoMigrate(&models.Community{}, &models.User{}, &models.Post{})
+	db.AutoMigrate(&models.Community{}, &models.User{}, &models.Post{}, &models.Member{})
 
 	return db
 }

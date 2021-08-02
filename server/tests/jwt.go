@@ -1,12 +1,12 @@
 package tests
 
 import (
-	"choco/server/internals/auth"
+	"choco/server/internals/usecase/session"
 	"testing"
 )
 
 func testAuthJwtEncode(t *testing.T, key []byte, issuer string) string {
-	token, err := auth.Encode(key, issuer, "choco@choco")
+	token, err := session.Encode(key, issuer, "choco@choco")
 
 	if err != nil {
 		t.Errorf("Not expected an error to create an user token: %s", err)
@@ -15,8 +15,8 @@ func testAuthJwtEncode(t *testing.T, key []byte, issuer string) string {
 	return token
 }
 
-func testAuthJwtValidDecode(t *testing.T, key []byte, token string) *auth.JwtClaim {
-	claim, err := auth.IsExpiredAndDecode(token, key)
+func testAuthJwtValidDecode(t *testing.T, key []byte, token string) *session.JwtClaim {
+	claim, err := session.IsExpiredAndDecode(token, key)
 
 	if err != nil {
 		t.Errorf("Not expected an error to decode a valid jwt")
@@ -25,8 +25,8 @@ func testAuthJwtValidDecode(t *testing.T, key []byte, token string) *auth.JwtCla
 	return claim
 }
 
-func testAuthJwtInvalidDecode(t *testing.T, key []byte, token string) *auth.JwtClaim {
-	claim, err := auth.IsExpiredAndDecode(token, key)
+func testAuthJwtInvalidDecode(t *testing.T, key []byte, token string) *session.JwtClaim {
+	claim, err := session.IsExpiredAndDecode(token, key)
 
 	if err == nil {
 		t.Errorf("Expected an error to decode an invalid jwt")
@@ -34,4 +34,3 @@ func testAuthJwtInvalidDecode(t *testing.T, key []byte, token string) *auth.JwtC
 
 	return claim
 }
-

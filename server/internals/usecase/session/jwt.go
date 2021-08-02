@@ -1,10 +1,10 @@
-package auth
+package session
 
 import (
 	"errors"
 	"time"
 
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt"
 )
 
 type JwtClaim struct {
@@ -22,6 +22,7 @@ func Encode(key []byte, issuer, email string) (string, error) {
 	}
 
 	jwtInst := jwt.NewWithClaims(jwt.SigningMethodHS256, atClaims)
+
 	return jwtInst.SignedString(key)
 }
 

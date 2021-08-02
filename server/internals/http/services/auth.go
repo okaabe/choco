@@ -1,19 +1,19 @@
 package services
 
 import (
-	"choco/server/internals/auth"
-	"choco/server/internals/http/inputs"
+	"choco/server/internals/http/binds"
+	"choco/server/internals/usecase/session"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
 type AuthService struct {
-	Auth *auth.Auth
+	Session *session.SessionUseCase
 }
 
 func (this *AuthService) SignUp(c *gin.Context) {
-	var signup inputs.SignUp
+	var signup binds.SignUp
 
 	if err := c.ShouldBindJSON(&signup); err != nil || signup.Email == "" || signup.Password == "" || signup.Username == "" {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
@@ -22,7 +22,7 @@ func (this *AuthService) SignUp(c *gin.Context) {
 		return
 	}
 
-	user, token, err := this.Auth.Register(signup.Username, signup.Email, []byte(signup.Password))
+	user, token, err := this.Session.Register(signup.Username, signup.Email, []byte(signup.Password))
 
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{
@@ -35,7 +35,6 @@ func (this *AuthService) SignUp(c *gin.Context) {
 		"data": gin.H{
 			"username":   user.Username,
 			"email":      user.Email,
-			"permission": user.Permission,
 			"created_at": user.CreatedAt,
 			"updated_at": user.UpdatedAt,
 			"jwt":        token,
@@ -44,7 +43,7 @@ func (this *AuthService) SignUp(c *gin.Context) {
 }
 
 func (this *AuthService) SignIn(c *gin.Context) {
-	var signin inputs.SignIn
+	var signin binds.SignIn
 
 	if err := c.ShouldBindJSON(&signin); err != nil || signin.Email == "" || signin.Password == "" {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
@@ -53,7 +52,7 @@ func (this *AuthService) SignIn(c *gin.Context) {
 		return
 	}
 
-	user, token, err := this.Auth.Authenticate(signin.Email, []byte(signin.Password))
+	user, token, err := this.Session.Authenticate(signin.Email, []byte(signin.Password))
 
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{
@@ -66,7 +65,6 @@ func (this *AuthService) SignIn(c *gin.Context) {
 		"data": gin.H{
 			"username":   user.Username,
 			"email":      user.Email,
-			"permission": user.Permission,
 			"created_at": user.CreatedAt,
 			"updated_at": user.UpdatedAt,
 			"jwt":        token,
@@ -85,7 +83,7 @@ func (this *AuthService) Rewoke(c *gin.Context) {
 		return
 	}
 
-	user, err := this.Auth.Rewoke(token)
+	user, err := this.Session.Rewoke(token)
 
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{
@@ -98,7 +96,6 @@ func (this *AuthService) Rewoke(c *gin.Context) {
 		"data": gin.H{
 			"username":   user.Username,
 			"email":      user.Email,
-			"permission": user.Permission,
 			"created_at": user.CreatedAt,
 			"updated_at": user.UpdatedAt,
 		},

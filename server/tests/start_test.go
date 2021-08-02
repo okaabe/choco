@@ -2,10 +2,8 @@ package tests
 
 import (
 	"choco/server/internals/adapters"
-	"choco/server/internals/auth"
-	"choco/server/internals/content"
-
-	// "choco/server/internals/auth"
+	"choco/server/internals/usecase/content"
+	"choco/server/internals/usecase/session"
 	"testing"
 )
 
@@ -19,6 +17,9 @@ func TestAdapters(t *testing.T) {
 		Adapter: adapter,
 	})
 	testPostAdapter(t, &adapters.PostAdapterImpl{
+		Adapter: adapter,
+	})
+	testMemberAdapter(t, &adapters.MemberAdapterImpl{
 		Adapter: adapter,
 	})
 }
@@ -40,20 +41,25 @@ func TestFeatures(t *testing.T) {
 		Adapter: adapter,
 	}
 
-	var auth = &auth.Auth{
+	var sessionUseCase = &session.SessionUseCase{
 		Issuer:      []byte("test"),
 		Secret:      []byte("test"),
 		UserAdapter: userAdapter,
 	}
 
-	testAuth(t, auth)
+	testAuth(t, sessionUseCase)
 
-	testContent(t, auth, &content.Content{
-		Auth:        auth,
-		UserAdapter: userAdapter,
+	testContent(t, sessionUseCase, &content.Content{
+		Session: sessionUseCase,
+
+		MemberAdapter: &adapters.MemberAdapterImpl{
+			Adapter: adapter,
+		},
+
 		CommunityAdapter: &adapters.CommunityAdapterImpl{
 			Adapter: adapter,
 		},
+
 		PostAdapter: &adapters.PostAdapterImpl{
 			Adapter: adapter,
 		},

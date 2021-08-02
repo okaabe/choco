@@ -1,63 +1,45 @@
-# Choco server-side
-That's the choco's server-side code which was writen in golang
+# Choco API
+That's the api of the choco, where the authentication and content management are done, if you are interested on it, check more information about it below
 
-## Info
-Here it is all the information about what you need to know to use this api
+## Routes
+- [x] `/api/auth/signin` <strong>POST</strong>
+- [x] `/api/auth/signup` <strong>POST</strong>
+- [x] `/api/auth/rewoke` <strong>GET</strong>
 
-## Addresses
-The addresses of the rest-api
+- [ ] `/api/content/user/communities` <strong>GET</strong>
 
-### /api/auth/signin
-Route to authenticate the user, you need to write on the body of the http request the json below
 
-```json
-{
-    "email": "the user's email",
-    "password": "the users password"
-}
-```
+- [ ] `/api/content/community` <strong>POST</strong>
+- [ ] `/api/content/community?search_query=<text>` <strong>GET</strong>
+- [ ] `/api/content/community/:id` <strong>GET</strong>
+- [ ] `/api/content/community/:id/posts` <strong>POST</strong>
+- [ ] `/api/content/community/:id/posts` <strong>GET</strong>
+- [ ] `/api/content/community/:id/posts/:postId` <strong>GET</strong>
 
-The server will return a json that has the property err that will inform if everything happened as planned or if ocurred some error
+## Stack
+On the server-side of the choco, i have used:
 
-```json
-{
-    "err": "Something rlly wrong happened"
-}
-```
+- Golang
 
-But if everything happend as planned, the json will have the property "data", that will be the jwt:
+- Docker
+- Docker Compose
 
-```json
-{
-    "err": null,
-    "data": "jwt here"
-}
-```
+- Gin Gonic (Http Framework)
 
-### /auth/auth/signup
-Route to create the user's account, necessary the following body:
+- Postgresql(production db) and SQlite(db to run the tests)
+- Gorm (as sql orm)
 
-```json
-{
-    "username": "user's username",
-    "email": "user's email",
-    "password": "user's password",
-}
-```
+- TDD (Test driven development)
+- DDD (Domain driven design)
+- DOD (Data oriented design)
 
-the response body of a successful operation will be:
 
-```json
-{
-    "err": null,
-    "data": "jwt"
-}
-```
-
-and about a failed operation:
-
-```json
-{
-    "err": "Something rlly happened",
-}
-```
+## Links
+- http://jamesmcm.github.io/blog/2020/07/25/intro-dod/
+- https://airbrake.io/blog/software-design/domain-driven-design
+- https://en.wikipedia.org/wiki/Test-driven_development
+- https://gorm.io
+- https://github.com/gin-gonic/gin
+- https://www.docker.com/
+- https://docs.docker.com/compose/
+- https://golang.org/
