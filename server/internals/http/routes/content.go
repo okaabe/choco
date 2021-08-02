@@ -14,7 +14,6 @@ func registerContentRoutes(router *gin.Engine, content *services.ContentHttpServ
 	router.POST("/api/content/user/community/", middlware.Middlware, content.JoinCommunity)
 
 	router.GET("/api/content/", content.Search)
-	router.GET("/api/content/:name", content.Search)
 	router.GET("/api/content/community/:name", content.GetCommunity)
 
 	router.POST("/api/content/community/:name", middlware.Middlware, content.CreatePost)
