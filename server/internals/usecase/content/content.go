@@ -6,6 +6,7 @@ import (
 	"choco/server/internals/usecase/session"
 	"errors"
 	"fmt"
+	"strings"
 )
 
 type Content struct {
@@ -22,7 +23,7 @@ func (this *Content) CreateCommunity(name, description, token string, nsfw bool)
 		return nil, rewokeErr
 	}
 
-	community, communityErr := models.NewCommunity(name, description, user.ID, nsfw)
+	community, communityErr := models.NewCommunity(strings.ToLower(name), description, user.ID, nsfw)
 
 	if communityErr != nil {
 		return nil, errors.New("Couldn't create the community")
@@ -57,7 +58,7 @@ func (this *Content) JoinTheCommunity(token string, communityName string) (*mode
 		return nil, rewokeErr
 	}
 
-	comm, commErr := this.CommunityAdapter.Name(communityName)
+	comm, commErr := this.CommunityAdapter.Name(strings.ToLower(communityName))
 
 	if commErr != nil {
 		return nil, errors.New("COuldn't find a community with this id")
@@ -95,7 +96,7 @@ func (this *Content) CreatePost(title, text, token, communityName string, nsfw b
 		return nil, rewokeErr
 	}
 
-	community, communityErr := this.CommunityAdapter.Name(communityName)
+	community, communityErr := this.CommunityAdapter.Name(strings.ToLower(communityName))
 
 	if communityErr != nil {
 		return nil, errors.New("Couldn't find the community with this id")
