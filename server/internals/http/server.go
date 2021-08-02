@@ -1,9 +1,9 @@
 package http
 
 import (
-	"choco/server/internals/content"
 	"choco/server/internals/http/routes"
-	"choco/server/internals/session"
+	"choco/server/internals/usecase/content"
+	"choco/server/internals/usecase/session"
 	"time"
 
 	"github.com/gin-gonic/gin"

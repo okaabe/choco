@@ -2,9 +2,9 @@ package cmd
 
 import (
 	"choco/server/internals/adapters"
-	"choco/server/internals/content"
 	"choco/server/internals/http"
-	"choco/server/internals/session"
+	"choco/server/internals/usecase/content"
+	"choco/server/internals/usecase/session"
 	"os"
 )
 
@@ -23,7 +23,7 @@ func RunApp() {
 		}
 
 		content = &content.Content{
-			Session:             sessionUseCase,
+			Session:          sessionUseCase,
 			CommunityAdapter: &adapters.CommunityAdapterImpl{Adapter: adapter},
 			PostAdapter:      &adapters.PostAdapterImpl{Adapter: adapter},
 			MemberAdapter:    &adapters.MemberAdapterImpl{Adapter: adapter},

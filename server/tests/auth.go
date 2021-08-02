@@ -2,7 +2,7 @@ package tests
 
 import (
 	"choco/server/internals/models"
-	"choco/server/internals/session"
+	"choco/server/internals/usecase/session"
 	"testing"
 )
 

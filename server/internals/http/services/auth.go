@@ -2,7 +2,7 @@ package services
 
 import (
 	"choco/server/internals/http/inputs"
-	"choco/server/internals/session"
+	"choco/server/internals/usecase/session"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

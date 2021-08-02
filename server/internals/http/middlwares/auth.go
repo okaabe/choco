@@ -1,7 +1,7 @@
 package middlwares
 
 import (
-	"choco/server/internals/session"
+	"choco/server/internals/usecase/session"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

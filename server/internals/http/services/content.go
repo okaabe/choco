@@ -1,8 +1,8 @@
 package services
 
 import (
-	"choco/server/internals/content"
 	"choco/server/internals/http/inputs"
+	"choco/server/internals/usecase/content"
 	"net/http"
 
 	// "net/http"

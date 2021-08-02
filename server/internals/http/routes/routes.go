@@ -1,10 +1,10 @@
 package routes
 
 import (
-	"choco/server/internals/content"
 	"choco/server/internals/http/middlwares"
 	"choco/server/internals/http/services"
-	"choco/server/internals/session"
+	"choco/server/internals/usecase/content"
+	"choco/server/internals/usecase/session"
 
 	"github.com/gin-gonic/gin"
 )

@@ -1,7 +1,7 @@
 package tests
 
 import (
-	"choco/server/internals/session"
+	"choco/server/internals/usecase/session"
 	"testing"
 )
 
@@ -34,4 +34,3 @@ func testAuthJwtInvalidDecode(t *testing.T, key []byte, token string) *session.J
 
 	return claim
 }
-

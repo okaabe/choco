@@ -3,7 +3,7 @@ package content
 import (
 	"choco/server/internals/adapters"
 	"choco/server/internals/models"
-	"choco/server/internals/session"
+	"choco/server/internals/usecase/session"
 	"errors"
 	"fmt"
 )

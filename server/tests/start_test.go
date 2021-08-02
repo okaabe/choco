@@ -2,8 +2,8 @@ package tests
 
 import (
 	"choco/server/internals/adapters"
-	"choco/server/internals/content"
-	"choco/server/internals/session"
+	"choco/server/internals/usecase/content"
+	"choco/server/internals/usecase/session"
 	"testing"
 )
 
