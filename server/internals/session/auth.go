@@ -1,4 +1,4 @@
-package auth
+package session
 
 import (
 	"choco/server/internals/adapters"
@@ -8,14 +8,14 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-type Auth struct {
+type SessionUseCase struct {
 	Issuer []byte
 	Secret []byte
 
 	UserAdapter adapters.UserAdapter
 }
 
-func (this *Auth) Register(username, email string, password []byte) (*models.User, string, error) {
+func (this *SessionUseCase) Register(username, email string, password []byte) (*models.User, string, error) {
 	hash, hashErr := bcrypt.GenerateFromPassword(password, bcrypt.DefaultCost)
 
 	if hashErr != nil {
@@ -43,7 +43,7 @@ func (this *Auth) Register(username, email string, password []byte) (*models.Use
 	return user, token, nil
 }
 
-func (this *Auth) Authenticate(email string, password []byte) (*models.User, string, error) {
+func (this *SessionUseCase) Authenticate(email string, password []byte) (*models.User, string, error) {
 	user, userErr := this.UserAdapter.Email(email)
 
 	if userErr != nil {
@@ -65,7 +65,7 @@ func (this *Auth) Authenticate(email string, password []byte) (*models.User, str
 	return user, token, nil
 }
 
-func (this *Auth) Rewoke(token string) (*models.User, error) {
+func (this *SessionUseCase) Rewoke(token string) (*models.User, error) {
 	claim, jwtErr := IsExpiredAndDecode(token, this.Secret)
 
 	if jwtErr != nil {

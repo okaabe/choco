@@ -1,15 +1,15 @@
 package services
 
 import (
-	"choco/server/internals/auth"
 	"choco/server/internals/http/inputs"
+	"choco/server/internals/session"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
 type AuthService struct {
-	Auth *auth.Auth
+	Session *session.SessionUseCase
 }
 
 func (this *AuthService) SignUp(c *gin.Context) {
@@ -22,7 +22,7 @@ func (this *AuthService) SignUp(c *gin.Context) {
 		return
 	}
 
-	user, token, err := this.Auth.Register(signup.Username, signup.Email, []byte(signup.Password))
+	user, token, err := this.Session.Register(signup.Username, signup.Email, []byte(signup.Password))
 
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{
@@ -52,7 +52,7 @@ func (this *AuthService) SignIn(c *gin.Context) {
 		return
 	}
 
-	user, token, err := this.Auth.Authenticate(signin.Email, []byte(signin.Password))
+	user, token, err := this.Session.Authenticate(signin.Email, []byte(signin.Password))
 
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{
@@ -83,7 +83,7 @@ func (this *AuthService) Rewoke(c *gin.Context) {
 		return
 	}
 
-	user, err := this.Auth.Rewoke(token)
+	user, err := this.Session.Rewoke(token)
 
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{

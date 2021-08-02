@@ -1,14 +1,14 @@
 package middlwares
 
 import (
-	"choco/server/internals/auth"
+	"choco/server/internals/session"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
 type AuthMiddlware struct {
-	Auth *auth.Auth
+	Session *session.SessionUseCase
 }
 
 func (this *AuthMiddlware) Middlware(c *gin.Context) {
@@ -21,7 +21,7 @@ func (this *AuthMiddlware) Middlware(c *gin.Context) {
 		return
 	}
 
-	_, err := this.Auth.Rewoke(token)
+	_, err := this.Session.Rewoke(token)
 
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{

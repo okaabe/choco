@@ -2,21 +2,21 @@ package content
 
 import (
 	"choco/server/internals/adapters"
-	"choco/server/internals/auth"
 	"choco/server/internals/models"
+	"choco/server/internals/session"
 	"errors"
 	"fmt"
 )
 
 type Content struct {
-	Auth             *auth.Auth
+	Session          *session.SessionUseCase
 	MemberAdapter    adapters.MemberAdapter
 	CommunityAdapter adapters.CommunityAdapter
 	PostAdapter      adapters.PostAdapter
 }
 
 func (this *Content) CreateCommunity(name, description, token string, nsfw bool) (*models.Community, error) {
-	user, rewokeErr := this.Auth.Rewoke(token)
+	user, rewokeErr := this.Session.Rewoke(token)
 
 	if rewokeErr != nil {
 		return nil, rewokeErr
@@ -51,7 +51,7 @@ func (this *Content) CreateCommunity(name, description, token string, nsfw bool)
 
 //That functions is responsible to execute the operation to a user join in a community
 func (this *Content) JoinTheCommunity(token string, communityName string) (*models.Member, error) {
-	user, rewokeErr := this.Auth.Rewoke(token)
+	user, rewokeErr := this.Session.Rewoke(token)
 
 	if rewokeErr != nil {
 		return nil, rewokeErr
@@ -89,7 +89,7 @@ func (this *Content) GetCommunity(name string) (*models.Community, error) {
 }
 
 func (this *Content) CreatePost(title, text, token, communityName string, nsfw bool) (*models.Post, error) {
-	user, rewokeErr := this.Auth.Rewoke(token)
+	user, rewokeErr := this.Session.Rewoke(token)
 
 	if rewokeErr != nil {
 		return nil, rewokeErr
@@ -139,7 +139,7 @@ func (this *Content) Search(text string) ([]models.Community, []models.Post, err
 }
 
 func (this *Content) GetJoinedCommunities(token string) ([]models.Member, error) {
-	user, rewokeErr := this.Auth.Rewoke(token)
+	user, rewokeErr := this.Session.Rewoke(token)
 
 	if rewokeErr != nil {
 		return nil, rewokeErr

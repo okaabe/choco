@@ -2,12 +2,8 @@ package tests
 
 import (
 	"choco/server/internals/adapters"
-	"choco/server/internals/auth"
 	"choco/server/internals/content"
-
-	// "choco/server/internals/content"
-
-	// "choco/server/internals/auth"
+	"choco/server/internals/session"
 	"testing"
 )
 
@@ -45,16 +41,16 @@ func TestFeatures(t *testing.T) {
 		Adapter: adapter,
 	}
 
-	var auth = &auth.Auth{
+	var sessionUseCase = &session.SessionUseCase{
 		Issuer:      []byte("test"),
 		Secret:      []byte("test"),
 		UserAdapter: userAdapter,
 	}
 
-	testAuth(t, auth)
+	testAuth(t, sessionUseCase)
 
-	testContent(t, auth, &content.Content{
-		Auth: auth,
+	testContent(t, sessionUseCase, &content.Content{
+		Session: sessionUseCase,
 
 		MemberAdapter: &adapters.MemberAdapterImpl{
 			Adapter: adapter,

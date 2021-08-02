@@ -1,9 +1,9 @@
 package tests
 
 import (
-	"choco/server/internals/auth"
 	"choco/server/internals/content"
 	"choco/server/internals/models"
+	"choco/server/internals/session"
 	"testing"
 )
 
@@ -99,7 +99,7 @@ func testContentInvalidGetJoinedCommunities(t *testing.T, content *content.Conte
 	return members
 }
 
-func testContent(t *testing.T, auth *auth.Auth, content *content.Content) {
+func testContent(t *testing.T, auth *session.SessionUseCase, content *content.Content) {
 	_, token, registerErr := auth.Register("okaabe", "okaabe@okaabe", []byte("okaabe"))
 
 	if registerErr != nil {

@@ -42,7 +42,6 @@ func (this *ContentService) CreateCommunity(c *gin.Context) {
 }
 
 func (this *ContentService) CreatePost(c *gin.Context) {
-
 }
 
 func (this *ContentService) JoinCommunity(c *gin.Context) {

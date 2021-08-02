@@ -1,12 +1,12 @@
 package tests
 
 import (
-	"choco/server/internals/auth"
 	"choco/server/internals/models"
+	"choco/server/internals/session"
 	"testing"
 )
 
-func testAuthRegister(t *testing.T, auth *auth.Auth, username, email string, password []byte) (*models.User, string) {
+func testAuthRegister(t *testing.T, auth *session.SessionUseCase, username, email string, password []byte) (*models.User, string) {
 	user, token, err := auth.Register(username, email, password)
 
 	if err != nil {
@@ -16,7 +16,7 @@ func testAuthRegister(t *testing.T, auth *auth.Auth, username, email string, pas
 	return user, token
 }
 
-func testAuthRewoke(t *testing.T, auth *auth.Auth, token string) *models.User {
+func testAuthRewoke(t *testing.T, auth *session.SessionUseCase, token string) *models.User {
 	user, err := auth.Rewoke(token)
 
 	if err != nil {
@@ -26,7 +26,7 @@ func testAuthRewoke(t *testing.T, auth *auth.Auth, token string) *models.User {
 	return user
 }
 
-func testAuthInvalidRewoke(t *testing.T, auth *auth.Auth, token string) {
+func testAuthInvalidRewoke(t *testing.T, auth *session.SessionUseCase, token string) {
 	_, err := auth.Rewoke(token)
 
 	if err == nil {
@@ -34,7 +34,7 @@ func testAuthInvalidRewoke(t *testing.T, auth *auth.Auth, token string) {
 	}
 }
 
-func testAuthValidAuthenticate(t *testing.T, auth *auth.Auth, email string, password []byte) string {
+func testAuthValidAuthenticate(t *testing.T, auth *session.SessionUseCase, email string, password []byte) string {
 	_, token, err := auth.Authenticate(email, password)
 
 	if err != nil {
@@ -44,7 +44,7 @@ func testAuthValidAuthenticate(t *testing.T, auth *auth.Auth, email string, pass
 	return token
 }
 
-func testAuthInvalidAuthenticate(t *testing.T, auth *auth.Auth, email string, password []byte) {
+func testAuthInvalidAuthenticate(t *testing.T, auth *session.SessionUseCase, email string, password []byte) {
 	_, _, err := auth.Authenticate(email, password)
 
 	if err == nil {
@@ -52,7 +52,7 @@ func testAuthInvalidAuthenticate(t *testing.T, auth *auth.Auth, email string, pa
 	}
 }
 
-func testAuth(t *testing.T, auth *auth.Auth) {
+func testAuth(t *testing.T, auth *session.SessionUseCase) {
 	var (
 		username = "choco"
 		email    = "choco@choco"
