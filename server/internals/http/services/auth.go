@@ -1,7 +1,7 @@
 package services
 
 import (
-	"choco/server/internals/http/inputs"
+	"choco/server/internals/http/binds"
 	"choco/server/internals/usecase/session"
 	"net/http"
 
@@ -13,7 +13,7 @@ type AuthService struct {
 }
 
 func (this *AuthService) SignUp(c *gin.Context) {
-	var signup inputs.SignUp
+	var signup binds.SignUp
 
 	if err := c.ShouldBindJSON(&signup); err != nil || signup.Email == "" || signup.Password == "" || signup.Username == "" {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
@@ -43,7 +43,7 @@ func (this *AuthService) SignUp(c *gin.Context) {
 }
 
 func (this *AuthService) SignIn(c *gin.Context) {
-	var signin inputs.SignIn
+	var signin binds.SignIn
 
 	if err := c.ShouldBindJSON(&signin); err != nil || signin.Email == "" || signin.Password == "" {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{

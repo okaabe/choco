@@ -1,4 +1,4 @@
-package inputs
+package binds
 
 type CreatePost struct {
 	Title string `json:"title"`

@@ -1,4 +1,4 @@
-package inputs
+package binds
 
 type SignIn struct {
 	Email    string `json:"email"`

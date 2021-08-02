@@ -1,4 +1,4 @@
-package inputs
+package binds
 
 type SignUp struct {
 	Username string `json:"username"`

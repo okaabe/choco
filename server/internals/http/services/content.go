@@ -1,7 +1,7 @@
 package services
 
 import (
-	"choco/server/internals/http/inputs"
+	"choco/server/internals/http/binds"
 	"choco/server/internals/usecase/content"
 	"net/http"
 
@@ -16,7 +16,7 @@ type ContentService struct {
 
 func (this *ContentService) CreateCommunity(c *gin.Context) {
 	var (
-		form  inputs.CreateCommunity
+		form  binds.CreateCommunity
 		token = c.Request.Header.Get("Authorization")
 	)
 

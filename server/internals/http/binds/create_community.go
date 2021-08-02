@@ -1,4 +1,4 @@
-package inputs
+package binds
 
 type CreateCommunity struct {
 	Name        string `json:"name"`
