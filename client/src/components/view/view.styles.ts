@@ -4,8 +4,5 @@ export const ViewContainer = styled.div`
     width: 100vw;
     height: 100vh;
 
-    background-color: ${({ theme }) => {
-        console.log(theme)
-        return theme.colors.background
-    }};
+    background-color: ${({ theme }) => theme.colors.background};
 `;

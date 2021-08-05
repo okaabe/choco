@@ -12,13 +12,9 @@ import { Dark } from './styles/themes/dark';
 
 export const App: React.FC = () => {
     return (
-        <View>
-            <ApplicationThemeProvider defaultTheme={ Dark }>
-                <SessionProvider>
-                    <ApplicationRoutes />
-                    <Toast />
-                </SessionProvider>
-            </ApplicationThemeProvider>
-        </View>
+        <ApplicationThemeProvider defaultTheme={ Dark }>
+            <ApplicationRoutes />
+            <Toast />
+        </ApplicationThemeProvider>
     );
 }

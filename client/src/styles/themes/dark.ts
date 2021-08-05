@@ -1,8 +1,8 @@
 import { DefaultTheme } from 'styled-components';
 
 export const Dark: DefaultTheme = {
-    name: "dark",
+    name: "cu",
     colors: {
-        background: "#000000",
+        background: "#202020",
     }
 }
