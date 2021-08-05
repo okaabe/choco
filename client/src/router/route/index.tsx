@@ -6,21 +6,23 @@ import {
 } from 'react-router-dom';
 
 import { RouteProperties } from './route.props';
-
+import { useSession } from '../../context/session';
 
 export const Route: React.FC<RouteProperties> = ({
     children,
     isPrivate,
     ...rest
 }) => {
-    if (isPrivate) {
+    const session = useSession();
+
+    if (isPrivate && !session.data) {
         return (
             <Redirect to="/signin"/>
         );
     }
 
     return (
-        <DefaultRoute>
+        <DefaultRoute {...rest}>
             { children }
         </DefaultRoute>
     );
