@@ -15,7 +15,7 @@ import {
 } from './session.types';
 
 import { AuthenticationCode } from '../../api/session/session.types';
-import { useToast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 export const SessionContext = createContext<SessionContextProperties>({} as SessionContextProperties);
 
@@ -32,18 +32,20 @@ export const SessionProvider: React.FC = ({
 
     useEffect(() => {
         rewoke(token).then((response) => {
-            if (response.code === AuthenticationCode.ACCEPTED && response.data !== null) {
-                setToken(response.data!.jwt);
-                setUsername(response.data?.username);
+            if (!response.data && response.code !== AuthenticationCode.ACCEPTED) {
+                return toast.error("Request to update the account information wasn't accepted")
             }
+
+            toast.success("Updated account information")
         }).catch((err) => {
+            return toast.error("Unfortunately it wasn't possible to update your account information.")
         })
     }, [token, setToken, setUsername]);
 
     return (
         <SessionContext.Provider value={{
             data: { token, username },
-            updateToken: setToken,
+            setToken: setToken,
             exit,
         }}>
             { children }

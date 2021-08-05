@@ -7,5 +7,5 @@ export type SessionContextProperties = {
     data?: SessionContextData;
     
     exit: () => any;
-    updateToken: (token: string) => any;
+    setToken: (token: string) => any;
 }

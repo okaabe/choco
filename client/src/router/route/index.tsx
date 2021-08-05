@@ -15,6 +15,8 @@ export const Route: React.FC<RouteProperties> = ({
 }) => {
     const session = useSession();
 
+    session.setToken("kekekeke")
+
     if (isPrivate && !session.data) {
         return (
             <Redirect to="/signin"/>
