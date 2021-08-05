@@ -7,5 +7,5 @@ export const Home: React.FC = () => {
         <View>
             Hello Okaabe, you are on the home page. be careful
         </View>
-    )
+    );
 }
