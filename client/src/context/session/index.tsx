@@ -14,6 +14,9 @@ import {
     SessionContextProperties,
 } from './session.types';
 
+import { AuthenticationCode } from '../../api/session/session.types';
+import { useToast } from 'react-toastify';
+
 export const SessionContext = createContext<SessionContextProperties>({} as SessionContextProperties);
 
 export const SessionProvider: React.FC = ({
@@ -28,19 +31,13 @@ export const SessionProvider: React.FC = ({
     }, [setToken, setUsername])
 
     useEffect(() => {
-        rewoke(token)
-            .then((response) => {
-                switch(response.code) {
-                    case 'SUCESS' && response.data:
-                        setToken(response.data!.jwt);
-                        setUsername(response.data?.username);
-                        break
-
-                    default:
-                        setToken("")
-                        setUsername("")
-                }
-            });
+        rewoke(token).then((response) => {
+            if (response.code === AuthenticationCode.ACCEPTED && response.data !== null) {
+                setToken(response.data!.jwt);
+                setUsername(response.data?.username);
+            }
+        }).catch((err) => {
+        })
     }, [token, setToken, setUsername]);
 
     return (

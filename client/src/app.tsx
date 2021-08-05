@@ -1,5 +1,19 @@
-import React from 'react'
+import React from 'react';
+
+import { View } from './components/view';
+import { Toast } from './components/popup/toast';
+
+import { ApplicationRoutes } from './router';
+
+import { SessionProvider } from './context/session';
 
 export const App: React.FC = () => {
-    return <h1>Hello Worold</h1>
+    return (
+        <View>
+            <SessionProvider>
+                <ApplicationRoutes />
+                <Toast />
+            </SessionProvider>
+        </View>
+    )
 }

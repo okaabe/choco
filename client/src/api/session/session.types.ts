@@ -1,8 +1,8 @@
-export type AuthenticationCode = 
-    'SUCESS'
-    | 'FAILED'
-    | 'MISSING_FIELDS'
-    | 'UNAUTHORIZED';
+export enum AuthenticationCode {
+    BAD_REQUEST = 401,
+    UNAUTHORIZED = 400,
+    ACCEPTED = 202,
+}
 
 export type AuthenticationResponse<T> = {
     code?: AuthenticationCode,
