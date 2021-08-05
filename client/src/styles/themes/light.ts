@@ -3,8 +3,8 @@ import { DefaultTheme } from 'styled-components';
 export const Light: DefaultTheme = {
     name: "light",
     colors: {
-        background: "#e0e0e0",
-        background_focus: "#eeeeee",
+        background: "#eeeeee",
+        background_focus: "#ffffff",
 
         foreground: "#1c1c1c",
         foreground_focus: "#ffffff",
