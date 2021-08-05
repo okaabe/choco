@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 
 export const Home: React.FC = () => {
     React.useEffect(() => {
-        toast("Private session")
+        toast.success("test")
     }, [])
 
     return (

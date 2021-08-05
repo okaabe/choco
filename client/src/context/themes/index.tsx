@@ -19,9 +19,11 @@ export const ApplicationThemeProvider: React.FC<ApplicationThemeProviderProperti
     console.log(theme);
 
     return (
-        <ThemeProvider theme={ theme }>
-            { children }
-        </ThemeProvider>
+        <ApplicationThemeContext.Provider value={{ theme, setTheme }}>
+            <ThemeProvider theme={ theme }>
+                { children }
+            </ThemeProvider>
+        </ApplicationThemeContext.Provider>
     );
 }
 
