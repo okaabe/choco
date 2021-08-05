@@ -17,12 +17,8 @@ export const ApplicationThemeProvider: React.FC<ApplicationThemeProviderProperti
     const [theme, setTheme] = usePersistedState<DefaultTheme>("choco@theme", defaultTheme);
 
     return (
-        <ThemeProvider theme={ defaultTheme }>
-            <ApplicationThemeContext.Provider value={{
-                theme, setTheme,
-            }}>
-                { children }
-            </ApplicationThemeContext.Provider>
+        <ThemeProvider theme={ theme }>
+            { children }
         </ThemeProvider>
     );
 }
