@@ -1,23 +1,11 @@
 import React from 'react';
 
-import {
-    HomeContainer,
-    HomeContent
-} from './styles';
-
-import { Header } from '../../components/header';
-
-import { useAuth } from '../../hooks/auth';
+import { View } from '../../components/view';
 
 export const Home: React.FC = () => {
-    const [ user ] = useAuth()
-
     return (
-        <HomeContainer>
-            <Header />
-            <HomeContent>
-                <h1>Hello { user.username }</h1>
-            </HomeContent>
-        </HomeContainer>
+        <View>
+            Hello Okaabe, you are on the home page. be careful
+        </View>
     );
 }

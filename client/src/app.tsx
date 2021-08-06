@@ -1,16 +1,18 @@
-import React from 'react'
+import React from 'react';
 
-import { Styles } from './styles/styled'
-import { AuthHook } from './hooks/auth'
-import { AppRoutes } from './routes';
+import { Toast } from './components/popup/toast';
+import { ApplicationRoutes } from './router';
+import { ApplicationThemeProvider } from './context/themes';
+import { ApplicationStyles } from './styles/globalStyled';
+
+import { Light } from './styles/themes/light';
 
 export const App: React.FC = () => {
     return (
-        <>
-        <AuthHook>
-            <AppRoutes />
-        </AuthHook>
-        <Styles/>
-        </>
-    )
+        <ApplicationThemeProvider defaultTheme={ Light }>
+            <ApplicationRoutes />
+            <Toast />
+            <ApplicationStyles />
+        </ApplicationThemeProvider>
+    );
 }
