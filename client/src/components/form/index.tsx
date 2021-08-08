@@ -1,19 +1,11 @@
 import React from 'react';
 
-import { FormInput, FormProperties } from './form.types';
-import { FormContainer, Input } from './form.styles';
+import { FormContainer } from './form.styles';
 
-export const Form: React.FC<FormProperties> = ({
-    inputs
-}) => {
+export const Form: React.FC = () => {
     return (
         <FormContainer>
-            { inputs?.map(({ onChangeState, ...props }) => 
-                <Input
-                    onChange={(e) => onChangeState!(e.target.value)}
-                    { ...props }
-                />
-            )}
+            TO DO
         </FormContainer>
     )
 }
