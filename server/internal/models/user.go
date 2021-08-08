@@ -8,6 +8,7 @@ const (
 
 type User struct {
 	Base
+	UUID       string `json:"uuid" gorm:"unique; type:uuid;"`
 	Username   string `json:"username"`
 	Email      string `json:"email" gorm:"unique; type:email;"`
 	Password   []byte `json:"password"`
